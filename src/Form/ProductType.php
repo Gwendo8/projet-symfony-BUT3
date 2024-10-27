@@ -36,10 +36,7 @@ class ProductType extends AbstractType
             ])
             ->add('description')
             ->add('status', EnumType::class, [
-                'class' => ProductStatus::class, // Utiliser la bonne classe Enum
-            ])
-            ->add('save', SubmitType::class, [
-                'label' => 'Enregistrer',
+                'class' => ProductStatus::class, 
             ]);
     }
 
