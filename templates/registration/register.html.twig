@@ -1,15 +1,51 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Register</h1>
-    {{ form_start(registrationForm) }}
-    
-    {{ form_row(registrationForm.email, { 'attr': {'class': 'form-control'} }) }}
-    {{ form_row(registrationForm.firstname, { 'attr': {'class': 'form-control'} }) }}
-    {{ form_row(registrationForm.lastname, { 'attr': {'class': 'form-control'} }) }}
-    {{ form_row(registrationForm.plainPassword, { 'attr': {'class': 'form-control'} }) }}
-    
-    {{ form_errors(registrationForm) }}
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <h1 class="h3 mb-4 text-center">Register</h1>
 
-    {{ form_end(registrationForm) }}
+                {{ form_start(registrationForm, {'attr': {'class': 'needs-validation', 'novalidate': 'novalidate'}}) }}
+
+                <div class="mb-3">
+                    {{ form_label(registrationForm.email, null, {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_widget(registrationForm.email, { 'attr': {'class': 'form-control'} }) }}
+                    {{ form_errors(registrationForm.email) }}
+                </div>
+
+                <div class="mb-3">
+                    {{ form_label(registrationForm.firstname, null, {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_widget(registrationForm.firstname, { 'attr': {'class': 'form-control'} }) }}
+                    {{ form_errors(registrationForm.firstname) }}
+                </div>
+
+                <div class="mb-3">
+                    {{ form_label(registrationForm.lastname, null, {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_widget(registrationForm.lastname, { 'attr': {'class': 'form-control'} }) }}
+                    {{ form_errors(registrationForm.lastname) }}
+                </div>
+
+                <div class="mb-3">
+                    {{ form_label(registrationForm.plainPassword, null, {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_widget(registrationForm.plainPassword, { 'attr': {'class': 'form-control'} }) }}
+                    {{ form_errors(registrationForm.plainPassword) }}
+                </div>
+
+                <button class="btn btn-lg btn-primary w-100" type="submit">
+                    Register
+                </button>
+
+                {{ form_end(registrationForm) }}
+
+                <!-- Lien vers la page de connexion -->
+                <div class="text-center mt-3">
+                    <span>Already have an account?</span>
+                    <a href="{{ path('app_login') }}" class="btn btn-outline-secondary mt-2 w-100">
+                        Go to login
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

@@ -188,7 +188,7 @@ class Product
         return $this;
     }
 
-    public function getStatus(): ProductStatus
+    public function getStatus(): ?ProductStatus
     {
         return $this->status;
     }

@@ -46,10 +46,6 @@ class RegistrationFormType extends AbstractType
                     'minMessage' => 'Votre mot de passe doit contenir au moins 6 caractères',
                 ]),
             ],
-        ])
-        ->add('submit', SubmitType::class, [
-            'attr' => ['class' => 'btn btn-primary'], 
-            'label' => 'Register'
         ]);
 }
 

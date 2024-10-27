@@ -11,12 +11,5 @@
     {{ form_end(form) }}
 
     <hr>
-
-    <h2>Supprimer l'utilisateur</h2>
-    <form method="post" action="{{ path('app_user_delete', { 'id': form.vars.id }) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cet utilisateur ?');">
-        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ form.vars.id) }}">
-        <button type="submit" class="btn btn-danger">Supprimer</button>
-    </form>
-
     <a href="{{ path('app_admin') }}" class="btn btn-secondary">Retour à la liste</a>
 {% endblock %}

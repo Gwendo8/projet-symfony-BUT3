@@ -7,5 +7,10 @@ enum OrderStatus: string
     case Shipped = 'expédiée';
     case Delivered = 'livrée';
     case Canceled = 'annulée';
+
+    public function toString(): string
+    {
+        return $this->value; 
+    }
 }
 ?>

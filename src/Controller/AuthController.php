@@ -50,9 +50,9 @@ public function login(Request $request, UserPasswordHasherInterface $passwordHas
 
         if ($user && $passwordHasher->isPasswordValid($user, $plainPassword)) {
 
-            return $this->redirectToRoute('home'); 
+            return $this->redirectToRoute('app_admin'); 
         } else {
-            $this->addFlash('error', 'Adresse mail ou mot de passe incorrect');
+            $this->addFlash(type: 'error', message: 'Adresse mail ou mot de passe incorrect');
         }
     }
 
