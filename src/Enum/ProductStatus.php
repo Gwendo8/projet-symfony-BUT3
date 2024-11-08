@@ -3,16 +3,16 @@ namespace App\Enum;
 
 enum ProductStatus: string
 {
-    case Available = 'disponible';
-    case OutOfStock = 'en rupture';
-    case PreOrder = 'en précommande';
+    case Disponible = 'disponible';
+    case Rupture = 'en rupture';
+    case Precommande = 'en précommande';
 
     public function toString(): string
     {
         return match ($this) {
-            self::Available => 'Disponible',
-            self::OutOfStock => 'En rupture',
-            self::PreOrder => 'En précommande',
+            self::Disponible => 'Disponible',
+            self::Rupture => 'En rupture',
+            self::Precommande => 'En précommande',
         };
     }
 }

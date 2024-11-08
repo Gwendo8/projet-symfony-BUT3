@@ -3,10 +3,10 @@ namespace App\Enum;
 
 enum OrderStatus: string
 {
-    case InPreparation = 'en préparation';
-    case Shipped = 'expédiée';
-    case Delivered = 'livrée';
-    case Canceled = 'annulée';
+    case Preparation = 'en préparation';
+    case Expedie = 'expédiée';
+    case Livre = 'livrée';
+    case Annuler = 'annulée';
 
     public function toString(): string
     {

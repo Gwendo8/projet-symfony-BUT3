@@ -1,0 +1,28 @@
+hello_world: "Bonjour le monde"
+welcome_message: "Bienvenue sur notre site"
+
+#show product
+admin_panel.products: "Tableau de bord d'administration - Produits"
+add_new_product: "Ajouter un nouveau produit"
+ID: "ID"
+name: "Nom"
+price: "Prix"
+description: "Description"
+stock: "Stock"
+status: "Statut"
+category: "Catégorie"
+actions: "Actions"
+edit: "Éditer"
+delete: "Supprimer"
+no_products_found: "Pas de produits trouvés"
+
+#product_add
+modifier:
+  product: "Modifier le produit"
+
+add_product: "Ajouter un nouveau produit"
+
+modify: "Modifier"
+add: "Ajouter"
+
+back_to_product_list: "Retour à la liste des produits"

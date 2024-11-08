@@ -3,13 +3,27 @@
 {% block title %}Modifier l'utilisateur{% endblock %}
 
 {% block body %}
-    <h1>Modifier l'utilisateur</h1>
+    <div class="container mt-4">
+        <h1>Modifier l'utilisateur</h1>
 
-    {{ form_start(form) }}
-        {{ form_widget(form) }}
-        <button type="submit" class="btn btn-primary">Enregistrer</button>
-    {{ form_end(form) }}
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
 
-    <hr>
-    <a href="{{ path('app_admin') }}" class="btn btn-secondary">Retour à la liste</a>
+        {% for message in app.flashes('error') %}
+            <div class="alert alert-danger">
+                {{ message }}
+            </div>
+        {% endfor %}
+
+        {{ form_start(form) }}
+            {{ form_widget(form) }}
+            <button type="submit" class="btn btn-primary">Enregistrer</button>
+        {{ form_end(form) }}
+
+        <hr>
+        <a href="{{ path('app_admin') }}" class="btn btn-secondary">Retour à la liste</a>
+    </div>
 {% endblock %}

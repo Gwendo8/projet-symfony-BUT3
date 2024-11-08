@@ -3,6 +3,7 @@
 
 namespace App\Form;
 
+use App\Entity\Category;
 use App\Entity\Product;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EnumType;
@@ -14,7 +15,8 @@ use Symfony\Component\Validator\Constraints\GreaterThan;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use App\Enum\ProductStatus; // Assurez-vous d'importer la bonne énumération
-
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Validator\Constraints as Assert;
 class ProductType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -24,6 +26,11 @@ class ProductType extends AbstractType
                 'constraints' => [
                     new NotBlank(['message' => 'Le nom ne peut pas être vide.']),
                 ],
+            ])
+            ->add('category', EntityType::class, [
+                'class' => Category::class,
+                'choice_label' => 'name',
+                'label' => 'Catégorie',
             ])
             ->add('price', NumberType::class, [
                 'constraints' => [
@@ -35,6 +42,12 @@ class ProductType extends AbstractType
                 ],
             ])
             ->add('description')
+            ->add('stock', NumberType::class, [
+                'constraints' => [
+                    new Assert\NotBlank(),
+                    new Assert\Positive()
+                ]
+            ])
             ->add('status', EnumType::class, [
                 'class' => ProductStatus::class, 
             ]);

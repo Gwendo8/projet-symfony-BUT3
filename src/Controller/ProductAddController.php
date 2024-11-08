@@ -35,3 +35,4 @@ class ProductAddController extends AbstractController
         ]);
     }
 }
+?>

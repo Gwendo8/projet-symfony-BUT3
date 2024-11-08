@@ -23,6 +23,8 @@ class UserEditController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
+            $this->addFlash('success', message: 'L\'utilisateur a été mis à jour avec succès.');
+
             return $this->redirectToRoute('app_admin');
         }
 
@@ -31,3 +33,4 @@ class UserEditController extends AbstractController
         ]);
     }
 }
+?>

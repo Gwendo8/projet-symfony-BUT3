@@ -1,0 +1,28 @@
+hello_world: "Hello World"
+welcome_message: "Welcome to our website"
+
+#show product
+admin_panel.products: "Admin Panel - Products"
+add_new_product: "Add a New Product"
+ID: "ID"
+name: "Name"
+price: "Price"
+description: "Description"
+stock: "Stock"
+status: "Status"
+category: "Category"
+actions: "Actions"
+edit: "Edit"
+delete: "Delete"
+no_products_found: "No products found"
+
+#product_add
+modifier:
+  product: "Modify Product"
+
+add_product: "Add New Product"
+
+modify: "Modify"
+add: "Add"
+
+back_to_product_list: "Back to product list"

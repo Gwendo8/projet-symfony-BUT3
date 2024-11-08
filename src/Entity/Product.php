@@ -53,6 +53,12 @@ class Product
     #[ORM\OneToMany(targetEntity: OrderItem::class, mappedBy: 'productss')]
     private Collection $orderItemss;
 
+    #[ORM\Column]
+    private ?int $Stock = null;
+
+    #[ORM\ManyToOne(inversedBy: 'products')]
+    private ?Category $category = null;
+
   
 
     public function __construct()
@@ -191,5 +197,29 @@ class Product
     public function getStatus(): ?ProductStatus
     {
         return $this->status;
+    }
+
+    public function getStock(): ?int
+    {
+        return $this->Stock;
+    }
+
+    public function setStock(int $Stock): static
+    {
+        $this->Stock = $Stock;
+
+        return $this;
+    }
+
+    public function getCategory(): ?Category
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?Category $category): static
+    {
+        $this->category = $category;
+
+        return $this;
     }
 }

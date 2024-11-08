@@ -18,8 +18,15 @@ class ProductDeleteController extends AbstractController
 
         if ($this->isCsrfTokenValid('delete' . $product->getId(), $request->request->get('_token'))) {
             if ($product->getOrderItems()->isEmpty()) {
+                foreach ($product->getImages() as $image) {
+                    $entityManager->remove($image);
+                }
+                
+                $entityManager->flush(); 
+
                 $entityManager->remove($product);
-                $entityManager->flush();
+                $entityManager->flush(); 
+                
                 $this->addFlash('success', 'Produit supprimé avec succès.');
             } else {
                 $this->addFlash('error', 'Impossible de supprimer ce produit car il fait partie d\'une commande.');
@@ -28,5 +35,4 @@ class ProductDeleteController extends AbstractController
 
         return $this->redirectToRoute('app_admin_products'); 
     }
-
 }

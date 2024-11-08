@@ -35,6 +35,18 @@ class Order
 
     #[ORM\ManyToOne(inversedBy: 'orders')]
     private ?User $user = null;
+    private $totalAmount;
+
+    public function getTotalAmount(): ?float
+    {
+        return $this->totalAmount;
+    }
+
+    public function setTotalAmount(float $totalAmount): self
+    {
+        $this->totalAmount = $totalAmount;
+        return $this;
+    }
 
     public function __construct()
     {
@@ -125,4 +137,8 @@ class Order
     {
         return $this->status;
     }
+    public function getStatusAsString(): string
+{
+    return $this->status->toString();
+}
 }
