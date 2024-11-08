@@ -222,4 +222,8 @@ class Product
 
         return $this;
     }
+public function isAvailable(int $quantity): bool
+{
+    return $this->Stock >= $quantity;
+}
 }

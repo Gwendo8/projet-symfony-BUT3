@@ -1,22 +1,20 @@
 <?php
-// src/DataFixtures/UserFixtures.php
+// src/DataFixtures/AppFixtures.php
 
 namespace App\DataFixtures;
 
 use App\Entity\User;
-use Doctrine\Bundle\FixturesBundle\Fixture;
-use Doctrine\Persistence\ObjectManager;
-use Faker\Factory;
-use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use App\Entity\Address;
 use App\Entity\Product;
-use App\Enum\ProductStatus;
 use App\Entity\Order;
 use App\Entity\OrderItem;
-use App\Enum\OrderStatus;
 use App\Entity\Category;
-
-
+use App\Entity\Image;
+use App\Enum\ProductStatus;
+use App\Enum\OrderStatus;
+use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Persistence\ObjectManager;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class AppFixtures extends Fixture
 {
@@ -26,7 +24,6 @@ class AppFixtures extends Fixture
 
     public function load(ObjectManager $manager): void
     {
-
         //User 1
         $user1 = new User();
         $user1->setEmail('gwendolinedardari7@gmail.com');
@@ -54,8 +51,6 @@ class AppFixtures extends Fixture
         $user3->setPassword($this->passwordHasher->hashPassword($user3,'test'));
         $manager->persist($user3);
 
-
-
         // Adresse pour user 1
         $address1 = new Address();
         $address1->setStreet('7 rue anne eugénie milleret');
@@ -68,7 +63,7 @@ class AppFixtures extends Fixture
         // Adresse pour user 2
         $address2 = new Address();
         $address2->setStreet('2 rue des marguerites');
-        $address2->setPostalCode(postalCode: '54000');
+        $address2->setPostalCode('54000');
         $address2->setCity('Nancy');
         $address2->setCountry('France');
         $address2->setUser($user2); 
@@ -82,7 +77,6 @@ class AppFixtures extends Fixture
         $address3->setCountry('France');
         $address3->setUser($user3); 
         $manager->persist($address3);
-
 
         //Catégorie 1
         $category1 = new Category();
@@ -104,8 +98,8 @@ class AppFixtures extends Fixture
         $product1->setName('Pop Sasuke');
         $product1->setPrice(35.00);
         $product1->setDescription('Pop Sasuke de lanime Naruto');
-        $product1->setStock(0);
-        $product1->setStatus(ProductStatus::Rupture);
+        $product1->setStock(10);
+        $product1->setStatus(ProductStatus::Disponible);
         $product1->setCategory($category1);
         $manager->persist($product1);
 
@@ -119,17 +113,17 @@ class AppFixtures extends Fixture
         $product2->setCategory($category1);
         $manager->persist($product2);
 
-         // Produit 3
-         $product3 = new Product();
-         $product3->setName('Pop Sakura');
-         $product3->setPrice(10.00);
-         $product3->setDescription('Pop Sakura de lanime Naruto');
-         $product3->setStock(100);
-         $product3->setStatus(ProductStatus::Disponible);
-         $product3->setCategory($category1);
-         $manager->persist($product3);
+        // Produit 3
+        $product3 = new Product();
+        $product3->setName('Pop Sakura');
+        $product3->setPrice(10.00);
+        $product3->setDescription('Pop Sakura de lanime Naruto');
+        $product3->setStock(100);
+        $product3->setStatus(ProductStatus::Disponible);
+        $product3->setCategory($category1);
+        $manager->persist($product3);
 
-         // Commande User 1
+        // Commande User 1
         $order1 = new Order();
         $order1->setReference('ORD-54648');
         $order1->setCreatedAt(new \DateTime());
@@ -153,8 +147,7 @@ class AppFixtures extends Fixture
         $order3->setUser($user3); 
         $manager->persist($order3);
 
-
-        //Order Item 1
+        // Order Item 1
         $orderItem1 = new OrderItem();
         $orderItem1->setQuantity(1);
         $orderItem1->setProductPrice($product1->getPrice());
@@ -162,7 +155,7 @@ class AppFixtures extends Fixture
         $orderItem1->setProduct($product1);
         $manager->persist($orderItem1);
 
-        //Order Item 2
+        // Order Item 2
         $orderItem2 = new OrderItem();
         $orderItem2->setQuantity(5);
         $orderItem2->setProductPrice($product2->getPrice());
@@ -170,7 +163,7 @@ class AppFixtures extends Fixture
         $orderItem2->setProduct($product2);
         $manager->persist($orderItem2);
 
-        //Order Item 3
+        // Order Item 3
         $orderItem3 = new OrderItem();
         $orderItem3->setQuantity(1);
         $orderItem3->setProductPrice($product3->getPrice());
@@ -178,8 +171,26 @@ class AppFixtures extends Fixture
         $orderItem3->setProduct($product3);
         $manager->persist($orderItem3);
 
-        $manager->flush();
+        $imageUrl1 = 'images/pop-sasuke.jpg';  
+        $image1 = new Image();
+        $image1->setUrl($imageUrl1);  
+        $image1->setProduct($product1); 
+        $manager->persist($image1);  
 
+        $imageUrl2 = 'images/pop-naruto.jpg';  
+        $image2 = new Image();
+        $image2->setUrl($imageUrl2);  
+        $image2->setProduct($product2); 
+        $manager->persist($image2);
+
+        $imageUrl3 = 'images/pop-sakura.jpg';  
+        $image3 = new Image();
+        $image3->setUrl($imageUrl3);  
+        $image3->setProduct($product3); 
+        $manager->persist($image3);
+
+        $manager->flush();
     }
+
 }
 ?>

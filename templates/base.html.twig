@@ -21,7 +21,10 @@
                 <div class="container">
                     <a class="navbar-brand" href="{{ path('home') }}">Anime Pop Up</a>
                     <div class="collapse navbar-collapse justify-content-center">
-                        <ul class="navbar-nav mx-3"> <!-- Ajout de mx-3 pour espacer les liens -->
+                        <ul class="navbar-nav mx-3"> 
+                          <li class="nav-item">
+                                <a class="nav-link" href="{{ path('app_product_index') }}">Boutique</a>
+                            </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ path('app_admin_products') }}">Produits</a>
                             </li>

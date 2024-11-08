@@ -7,6 +7,7 @@ enum OrderStatus: string
     case Expedie = 'expédiée';
     case Livre = 'livrée';
     case Annuler = 'annulée';
+    case Validee = 'validée';
 
     public function toString(): string
     {

@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">Mon Panier</h1>
+
+        {% if panier is empty %}
+            <div class="alert alert-info text-center">
+                Votre panier est vide.
+            </div>
+        {% else %}
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>Produit</th>
+                            <th>Prix</th>
+                            <th>Quantité</th>
+                            <th>Total</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% set total = 0 %}
+                        {% for productId, details in panier %}
+                            <tr>
+                                <td>
+                                    <strong>{{ details.name }}</strong>
+                                </td>
+                                <td>{{ details.price }} €</td>
+                                <td>
+                                    <!-- Formulaire pour modifier la quantité -->
+                                    <form action="{{ path('app_panier_modifier', {'productId': productId}) }}" method="POST" class="d-inline">
+                                        <input type="number" name="quantity" value="{{ details.quantity }}" min="1" class="form-control form-control-sm d-inline-block" style="width: 70px;">
+                                        <button type="submit" class="btn btn-warning btn-sm ml-2">Modifier</button>
+                                    </form>
+                                </td>
+                                <td>{{ details.price * details.quantity }} €</td>
+                                <td>
+                                    <!-- Formulaire pour supprimer le produit du panier -->
+                                    <form action="{{ path('app_panier_supprimer', {'productId': productId}) }}" method="POST" class="d-inline">
+                                        <button type="submit" class="btn btn-danger btn-sm">Supprimer</button>
+                                    </form>
+                                </td>
+                            </tr>
+                            {% set total = total + (details.price * details.quantity) %}
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="d-flex justify-content-between mt-4">
+                <h3>Total: {{ total }} €</h3>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

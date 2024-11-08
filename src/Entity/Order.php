@@ -51,6 +51,7 @@ class Order
     public function __construct()
     {
         $this->orderItems = new ArrayCollection();
+        $this->status = OrderStatus::Preparation;
     }
 
     public function getId(): ?int
@@ -140,5 +141,38 @@ class Order
     public function getStatusAsString(): string
 {
     return $this->status->toString();
+}
+
+public function calculateTotalAmount(): float
+{
+    $total = 0;
+    foreach ($this->getOrderItems() as $orderItem) {
+        $total += $orderItem->getQuantity() * $orderItem->getProductPrice();
+    }
+    return $total;
+}
+// src/Entity/Order.php
+
+public function validateOrder(): bool
+{
+    foreach ($this->orderItems as $orderItem) {
+        $product = $orderItem->getProduct();
+        
+        // Vérification du stock disponible
+        if (!$product->isAvailable($orderItem->getQuantity())) {
+            return false; // Si le stock n'est pas suffisant, on ne valide pas la commande
+        }
+    }
+
+    // Mise à jour du stock pour chaque produit commandé
+    foreach ($this->orderItems as $orderItem) {
+        $product = $orderItem->getProduct();
+        $product->setStock($product->getStock() - $orderItem->getQuantity());
+    }
+
+    // Mise à jour du statut de la commande
+    $this->setStatus(OrderStatus::Validee);
+
+    return true;
 }
 }
