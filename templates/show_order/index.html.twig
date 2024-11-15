@@ -2,16 +2,16 @@
 
 {% block body %}
     <div class="container">
-        <h1 class="mt-4">Admin Panel - Orders</h1>
+        <h1 class="mt-4">{{ 'admin_panel_orders.title' | trans }}</h1>
 
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th>ID</th>
-                    <th>Reference</th>
-                    <th>Created At</th>
-                    <th>Status</th>
-                    <th>User</th>
+                    <th>{{ 'admin_panel_orders.id' | trans }}</th>
+                    <th>{{ 'admin_panel_orders.reference' | trans }}</th>
+                    <th>{{ 'admin_panel_orders.created_at' | trans }}</th>
+                    <th>{{ 'admin_panel_orders.status' | trans }}</th>
+                    <th>{{ 'admin_panel_orders.user' | trans }}</th>
                 </tr>
             </thead>
             <tbody>
@@ -25,7 +25,7 @@
                     </tr>
                 {% else %}
                     <tr>
-                        <td colspan="6" class="text-center">Pas de commandes trouvées</td>
+                        <td colspan="6" class="text-center">{{ 'admin_panel_orders.no_orders_found' | trans }}</td>
                     </tr>
                 {% endfor %}
             </tbody>

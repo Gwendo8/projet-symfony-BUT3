@@ -2,7 +2,7 @@
 
 {% block body %}
     <div class="container">
-        <h1 class="mt-4">Admin Panel</h1>
+        <h1 class="mt-4">{{ 'admin_panel.title' | trans }}</h1>
 
         {% for message in app.flashes('success') %}
             <div class="alert alert-success mt-4">
@@ -19,12 +19,12 @@
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th>ID</th>
-                    <th>Email</th>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Roles</th> 
-                    <th>Actions</th>
+                    <th>{{ 'admin_panel.id' | trans }}</th>
+                    <th>{{ 'admin_panel.email' | trans }}</th>
+                    <th>{{ 'admin_panel.first_name' | trans }}</th>
+                    <th>{{ 'admin_panel.last_name' | trans }}</th>
+                    <th>{{ 'admin_panel.roles' | trans }}</th> 
+                    <th>{{ 'admin_panel.actions' | trans }}</th>
                 </tr>
             </thead>
             <tbody>
@@ -37,12 +37,12 @@
                         <td>{{ user.roles|join(', ') }}</td> 
 
                         <td>
-                            <a href="{{ path('app_user_edit', { id: user.id }) }}" class="btn btn-warning btn-sm">Edit</a>
+                            <a href="{{ path('app_user_edit', { id: user.id }) }}" class="btn btn-warning btn-sm">{{ 'admin_panel.edit' | trans }}</a>
                         </td>
                     </tr>
                 {% else %}
                     <tr>
-                        <td colspan="6" class="text-center">Pas d'utilisateurs</td> 
+                        <td colspan="6" class="text-center">{{ 'admin_panel.no_users_found' | trans }}</td> 
                     </tr>
                 {% endfor %}
             </tbody>

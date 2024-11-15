@@ -64,7 +64,7 @@ public function login(Request $request, UserPasswordHasherInterface $passwordHas
     public function logout(): void
     {
     }
-    #[Route('/', name: 'home')]
+    #[Route('/home', name: 'home')]
     public function index(): Response
     {
         return $this->render('home.html.twig');

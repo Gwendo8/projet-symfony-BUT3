@@ -26,3 +26,99 @@ modify: "Modifier"
 add: "Ajouter"
 
 back_to_product_list: "Retour à la liste des produits"
+
+#dashboard
+dashboard.title: "Tableau de bord d'administration"
+dashboard.product_category: "Nombre de produits par catégorie"
+dashboard.no_category_found: "Aucune catégorie trouvée"
+dashboard.last_orders: "Les 5 dernières commandes"
+dashboard.no_recent_orders: "Aucune commande récente"
+dashboard.product_status: "Nombre de produits par statut"
+dashboard.no_status_found: "Aucun statut trouvé"
+dashboard.sales_per_month: "Ventes mensuelles"
+dashboard.no_sales_recorded: "Aucune vente enregistrée pour cette année"
+
+#panier
+cart.title: "Mon Panier"
+cart.empty: "Votre panier est vide."
+cart.product: "Produit"
+cart.price: "Prix"
+cart.quantity: "Quantité"
+cart.total: "Total"
+cart.actions: "Actions"
+cart.update: "Modifier"
+cart.delete: "Supprimer"
+cart.checkout: "Payer"
+cart.total_price: "Total: "
+
+#product_edit
+product.edit: "Modifier le produit"
+product.add: "Ajouter un nouveau produit"
+product.name: "Nom du produit"
+product.price: "Prix"
+product.description: "Description"
+product.status: "Statut"
+product.category: "Catégorie"
+product.stock: "Stock"
+product.submit: "Modifier"
+product.submit_add: "Ajouter"
+product.back_to_list: "Retour à la liste des produits"
+
+#product_user
+product.add_to_cart: "Ajouter au panier"
+product.quantity_available: "Quantité disponible"
+product.view_cart: "Voir le panier"
+
+#registration
+register.title: "S'inscrire"
+register.submit: "S'inscrire"
+register.already_have_account: "Vous avez déjà un compte ?"
+register.go_to_login: "Aller à la connexion"
+
+#login
+login.title: "Connexion"
+login.sign_in: "Veuillez vous connecter"
+login.logged_in_as: "Vous êtes connecté en tant que"
+login.logout: "Se déconnecter"
+login.email: "Email"
+login.password: "Mot de passe"
+login.invalid_email: "Veuillez entrer une adresse email valide."
+login.invalid_password: "Veuillez entrer votre mot de passe."
+login.sign_in_button: "Se connecter"
+login.no_account: "Pas encore de compte ?"
+login.create_account: "Créer un compte"
+
+#show_order
+admin_panel_orders.title: "Tableau de bord d'administration - Commandes"
+admin_panel_orders.id: "ID"
+admin_panel_orders.reference: "Référence"
+admin_panel_orders.created_at: "Créé le"
+admin_panel_orders.status: "Statut"
+admin_panel_orders.user: "Utilisateur"
+admin_panel_orders.no_orders_found: "Pas de commandes trouvées"
+
+#show_user
+admin_panel.title: "Panneau d'administration"
+admin_panel.id: "ID"
+admin_panel.email: "Email"
+admin_panel.first_name: "Prénom"
+admin_panel.last_name: "Nom"
+admin_panel.roles: "Rôles"
+admin_panel.actions: "Actions"
+admin_panel.edit: "Éditer"
+admin_panel.no_users_found: "Aucun utilisateur trouvé"
+
+#user_edit
+user_edit.title: "Modifier l'utilisateur"
+user_edit.modify_user: "Modifier l'utilisateur"
+user_edit.save: "Enregistrer"
+user_edit.back_to_list: "Retour à la liste"
+
+#base 
+welcome: 'Bienvenue !'
+boutique: 'Boutique'
+produits: 'Produits'
+utilisateurs: 'Utilisateurs'
+orders: 'Commandes'
+dashboard: 'Tableau de bord'
+logout: 'Déconnexion'

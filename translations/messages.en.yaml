@@ -26,3 +26,99 @@ modify: "Modify"
 add: "Add"
 
 back_to_product_list: "Back to product list"
+
+#dashboard
+dashboard.title: "Admin Dashboard"
+dashboard.product_category: "Number of products by category"
+dashboard.no_category_found: "No category found"
+dashboard.last_orders: "Last 5 orders"
+dashboard.no_recent_orders: "No recent orders"
+dashboard.product_status: "Number of products by status"
+dashboard.no_status_found: "No status found"
+dashboard.sales_per_month: "Monthly sales"
+dashboard.no_sales_recorded: "No sales recorded for this year"
+
+#panier
+cart.title: "My Cart"
+cart.empty: "Your cart is empty."
+cart.product: "Product"
+cart.price: "Price"
+cart.quantity: "Quantity"
+cart.total: "Total"
+cart.actions: "Actions"
+cart.update: "Update"
+cart.delete: "Delete"
+cart.checkout: "Checkout"
+cart.total_price: "Total: "
+
+#product_edit
+product.edit: "Edit Product"
+product.add: "Add a New Product"
+product.name: "Product Name"
+product.price: "Price"
+product.description: "Description"
+product.status: "Status"
+product.category: "Category"
+product.stock: "Stock"
+product.submit: "Update"
+product.submit_add: "Add"
+product.back_to_list: "Back to Product List"
+
+#product_user
+product.add_to_cart: "Add to cart"
+product.quantity_available: "Quantity available"
+product.view_cart: "View cart"
+
+#registration
+register.title: "Register"
+register.submit: "Register"
+register.already_have_account: "Already have an account?"
+register.go_to_login: "Go to login"
+
+#login
+login.title: "Log in"
+login.sign_in: "Please sign in"
+login.logged_in_as: "You are logged in as"
+login.logout: "Logout"
+login.email: "Email"
+login.password: "Password"
+login.invalid_email: "Please enter a valid email address."
+login.invalid_password: "Please enter your password."
+login.sign_in_button: "Sign in"
+login.no_account: "Don't have an account?"
+login.create_account: "Create an account"
+
+#show_order
+admin_panel_orders.title: "Admin Panel - Orders"
+admin_panel_orders.id: "ID"
+admin_panel_orders.reference: "Reference"
+admin_panel_orders.created_at: "Created At"
+admin_panel_orders.status: "Status"
+admin_panel_orders.user: "User"
+admin_panel_orders.no_orders_found: "No orders found"
+
+#show_user
+admin_panel.title: "Admin Panel"
+admin_panel.id: "ID"
+admin_panel.email: "Email"
+admin_panel.first_name: "First Name"
+admin_panel.last_name: "Last Name"
+admin_panel.roles: "Roles"
+admin_panel.actions: "Actions"
+admin_panel.edit: "Edit"
+admin_panel.no_users_found: "No users found"
+
+#user_edit
+user_edit.title: "Edit User"
+user_edit.modify_user: "Edit User"
+user_edit.save: "Save"
+user_edit.back_to_list: "Back to list"
+
+#base
+welcome: 'Welcome!'
+boutique: 'Shop'
+produits: 'Products'
+utilisateurs: 'Users'
+orders: 'Orders'
+dashboard: 'Dashboard'
+logout: 'Logout'

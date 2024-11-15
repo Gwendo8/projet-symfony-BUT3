@@ -1,29 +1,54 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Modifier l'utilisateur{% endblock %}
+{% block title %}
+    {{ 'user_edit.title' | trans }}
+{% endblock %}
 
 {% block body %}
     <div class="container mt-4">
-        <h1>Modifier l'utilisateur</h1>
+        <h1 class="mb-4 text-center">{{ 'user_edit.modify_user' | trans }}</h1>
 
         {% for message in app.flashes('success') %}
-            <div class="alert alert-success">
-                {{ message }}
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>{{ message }}</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         {% endfor %}
 
         {% for message in app.flashes('error') %}
-            <div class="alert alert-danger">
-                {{ message }}
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <strong>{{ message }}</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         {% endfor %}
 
-        {{ form_start(form) }}
-            {{ form_widget(form) }}
-            <button type="submit" class="btn btn-primary">Enregistrer</button>
+        {{ form_start(form, { 'attr': {'class': 'bg-light p-4 rounded shadow-sm'} }) }}
+
+        <div class="mb-3">
+            {{ form_label(form.email, 'Email', {'attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}
+        </div>
+
+        <div class="mb-3">
+            {{ form_label(form.firstname, 'First Name', {'attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.firstname, {'attr': {'class': 'form-control'}}) }}
+        </div>
+
+        <div class="mb-3">
+            {{ form_label(form.lastname, 'Last Name', {'attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.lastname, {'attr': {'class': 'form-control'}}) }}
+        </div>
+
+        <div class="mb-3 text-center">
+            <button type="submit" class="btn btn-primary w-50">{{ 'user_edit.save' | trans }}</button>
+        </div>
+
         {{ form_end(form) }}
 
-        <hr>
-        <a href="{{ path('app_admin') }}" class="btn btn-secondary">Retour à la liste</a>
+        <hr class="my-4">
+
+        <div class="text-center">
+            <a href="{{ path('app_admin') }}" class="btn btn-secondary">{{ 'user_edit.back_to_list' | trans }}</a>
+        </div>
     </div>
 {% endblock %}
