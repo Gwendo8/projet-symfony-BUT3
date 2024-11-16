@@ -93,9 +93,14 @@ class AppFixtures extends Fixture
         $category3->setName('Tokyo Ghoul');
         $manager->persist($category3);
 
+        //Catégorie 4
+        $category4 = new Category();
+        $category4->setName('Boruto');
+        $manager->persist($category4);
+
         // Produit 1
         $product1 = new Product();
-        $product1->setName('Pop Sasuke Uchiha');
+        $product1->setName('Pop Uchiha Sasuke');
         $product1->setPrice(35.00);
         $product1->setDescription('Pop Sasuke de lanime Naruto');
         $product1->setStock(10);
@@ -105,7 +110,7 @@ class AppFixtures extends Fixture
 
         // Produit 2
         $product2 = new Product();
-        $product2->setName('Pop Naruto Uzumaki');
+        $product2->setName('Pop Uzumaki Naruto');
         $product2->setPrice(20.00);
         $product2->setDescription('Pop Naruto de lanime Naruto');
         $product2->setStock(50);
@@ -115,7 +120,7 @@ class AppFixtures extends Fixture
 
         // Produit 3
         $product3 = new Product();
-        $product3->setName('Pop Sakura Haruno');
+        $product3->setName('Pop Haruno Sakura');
         $product3->setPrice(10.00);
         $product3->setDescription('Pop Sakura de lanime Naruto');
         $product3->setStock(100);
@@ -125,8 +130,8 @@ class AppFixtures extends Fixture
 
         // Produit 4
         $product4 = new Product();
-        $product4->setName('Pop Kakashi Hatake');
-        $product4->setPrice(10.00);
+        $product4->setName('Pop Hatake Kakashi');
+        $product4->setPrice(17.00);
         $product4->setDescription('Pop Kakashi de lanime Naruto');
         $product4->setStock(100);
         $product4->setStatus(ProductStatus::Disponible);
@@ -135,8 +140,8 @@ class AppFixtures extends Fixture
 
         // Produit 5
         $product5 = new Product();
-        $product5->setName('Pop Shisui Uchiha');
-        $product5->setPrice(10.00);
+        $product5->setName('Pop Uchiha Shisui');
+        $product5->setPrice(15.00);
         $product5->setDescription('Pop Shisui de lanime Naruto');
         $product5->setStock(100);
         $product5->setStatus(ProductStatus::Disponible);
@@ -145,13 +150,103 @@ class AppFixtures extends Fixture
 
         // Produit 6
         $product6 = new Product();
-        $product6->setName('Pop Minato Uzumaki');
-        $product6->setPrice(10.00);
+        $product6->setName('Pop Uzumaki Minato');
+        $product6->setPrice(17.00);
         $product6->setDescription('Pop Minato de lanime Naruto');
         $product6->setStock(100);
         $product6->setStatus(ProductStatus::Disponible);
         $product6->setCategory($category1);
         $manager->persist($product6);
+
+         // Produit 7
+         $product7 = new Product();
+         $product7->setName('Pop Uzumaki Boruto');
+         $product7->setPrice(30.00);
+         $product7->setDescription('Pop Boruto de lanime Boruto');
+         $product7->setStock(100);
+         $product7->setStatus(ProductStatus::Disponible);
+         $product7->setCategory($category4);
+         $manager->persist($product7);
+
+         // Produit 8
+         $product8 = new Product();
+         $product8->setName('Pop Ôtsutsuki Boruto');
+         $product8->setPrice(35.00);
+         $product8->setDescription('Pop Boruto Ôtsutsuki de lanime Boruto');
+         $product8->setStock(100);
+         $product8->setStatus(ProductStatus::Disponible);
+         $product8->setCategory($category4);
+         $manager->persist($product8);
+
+         // Produit 9
+         $product9 = new Product();
+         $product9->setName('Pop Ôtsutsuki Kawaki');
+         $product9->setPrice(15.00);
+         $product9->setDescription('Pop Kawaki de lanime Boruto');
+         $product9->setStock(100);
+         $product9->setStatus(ProductStatus::Disponible);
+         $product9->setCategory($category4);
+         $manager->persist($product9);
+
+         // Produit 10
+         $product10 = new Product();
+         $product10->setName('Pop Ken Kaneki');
+         $product10->setPrice(30.00);
+         $product10->setDescription('Pop Kaneki de lanime Tokyo Ghoul');
+         $product10->setStock(100);
+         $product10->setStatus(ProductStatus::Disponible);
+         $product10->setCategory($category3);
+         $manager->persist($product10);
+
+         // Produit 11
+         $product11 = new Product();
+         $product11->setName('Pop Kirishima Touka');
+         $product11->setPrice(10.00);
+         $product11->setDescription('Pop Touka de lanime Tokyo Ghoul');
+         $product11->setStock(100);
+         $product11->setStatus(ProductStatus::Disponible);
+         $product11->setCategory($category3);
+         $manager->persist($product11);
+
+         // Produit 12
+         $product12 = new Product();
+         $product12->setName('Pop Kisho Arima');
+         $product12->setPrice(15.00);
+         $product12->setDescription('Pop Arima de lanime Tokyo Ghoul');
+         $product12->setStock(100);
+         $product12->setStatus(ProductStatus::Disponible);
+         $product12->setCategory($category3);
+         $manager->persist($product12);
+
+         // Produit 13
+         $product13 = new Product();
+         $product13->setName('Pop Ryomen Sukuna');
+         $product13->setPrice(30.00);
+         $product13->setDescription('Pop Sukuna de lanime Jujutsu Kaisen');
+         $product13->setStock(100);
+         $product13->setStatus(ProductStatus::Disponible);
+         $product13->setCategory($category3);
+         $manager->persist($product13);
+         
+         // Produit 14
+         $product14 = new Product();
+         $product14->setName('Pop Saturo Gojo');
+         $product14->setPrice(35.00);
+         $product14->setDescription('Pop Gojo de lanime Jujutsu Kaisen');
+         $product14->setStock(100);
+         $product14->setStatus(ProductStatus::Disponible);
+         $product14->setCategory($category3);
+         $manager->persist($product14);
+
+         // Produit 15
+         $product15 = new Product();
+         $product15->setName('Pop Fushiguro Megumi');
+         $product15->setPrice(15.00);
+         $product15->setDescription('Pop Megumi de lanime Jujutsu Kaisen');
+         $product15->setStock(100);
+         $product15->setStatus(ProductStatus::Disponible);
+         $product15->setCategory($category3);
+         $manager->persist($product15);
 
         // Commande User 1
         $order1 = new Order();
@@ -237,6 +332,66 @@ class AppFixtures extends Fixture
         $image6->setUrl($imageUrl6);  
         $image6->setProduct($product6); 
         $manager->persist($image6);
+
+        $imageUrl7 = 'images/pop-minato.jpg';  
+        $image6 = new Image();
+        $image6->setUrl($imageUrl6);  
+        $image6->setProduct($product6); 
+        $manager->persist($image6);
+
+        $imageUrl7 = 'images/pop-boruto.jpg';  
+        $image7 = new Image();
+        $image7->setUrl($imageUrl7);  
+        $image7->setProduct($product7); 
+        $manager->persist($image7);
+
+        $imageUrl8 = 'images/pop-boruto-otso.jpg';  
+        $image8 = new Image();
+        $image8->setUrl($imageUrl8);  
+        $image8->setProduct($product8); 
+        $manager->persist($image8);
+
+        $imageUrl9 = 'images/pop-kawaki.jpg';  
+        $image9 = new Image();
+        $image9->setUrl($imageUrl9);  
+        $image9->setProduct($product9); 
+        $manager->persist($image9);
+
+        $imageUrl10 = 'images/pop-kaneki.jpg';  
+        $image10 = new Image();
+        $image10->setUrl($imageUrl10);  
+        $image10->setProduct($product10); 
+        $manager->persist($image10);
+
+        $imageUrl11 = 'images/pop-touka.jpg';  
+        $image11 = new Image();
+        $image11->setUrl($imageUrl11);  
+        $image11->setProduct($product11); 
+        $manager->persist($image11);
+
+        $imageUrl12 = 'images/pop-arima.jpg';  
+        $image12 = new Image();
+        $image12->setUrl($imageUrl12);  
+        $image12->setProduct($product12); 
+        $manager->persist($image12);
+
+        $imageUrl13 = 'images/pop-sukuna.jpg';  
+        $image13 = new Image();
+        $image13->setUrl($imageUrl13);  
+        $image13->setProduct($product13); 
+        $manager->persist($image13);
+
+        $imageUrl14 = 'images/pop-gojo.jpg';  
+        $image14 = new Image();
+        $image14->setUrl($imageUrl14);  
+        $image14->setProduct($product14); 
+        $manager->persist($image14);
+
+        $imageUrl15 = 'images/pop-megumi.jpg';  
+        $image15 = new Image();
+        $image15->setUrl($imageUrl15);  
+        $image15->setProduct($product15); 
+        $manager->persist($image15);
 
         $manager->flush();
     }
