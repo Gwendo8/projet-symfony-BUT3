@@ -70,6 +70,10 @@
 {% endblock %}
 
 {% block body %}
+        <div data-controller="cart"></div>
+
+        {{ encore_entry_script_tags('app') }}
+        
     <div class="container mt-4"> 
         {% for message in app.flashes('success') %}
             <div class="alert alert-success">
@@ -96,7 +100,7 @@
                                     <p><strong>{{ 'product.quantity_available'|trans }}:</strong> {{ product.stock }}</p>
                                 </div>
                                 <div class="product-quantity">
-                                    <form action="{{ path('app_panier_ajouter') }}" method="POST">
+                                    <form data-controller="cart" data-action="submit->cart#addToCart" action="{{ path('app_panier_ajouter') }}" method="POST">
                                         <input type="hidden" name="product_id" value="{{ product.id }}">
                                         <div class="d-flex flex-column align-items-center">
                                             <input type="number" name="quantity" value="1" min="1" max="{{ product.stock }}" class="form-control mb-2" style="width: 80px; text-align: center;">

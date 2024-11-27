@@ -1,7 +1,11 @@
 {
   "dependencies": {
+    "@hotwired/stimulus": "^3.2.2",
     "@popperjs/core": "^2.11.8",
+    "@symfony/stimulus-bridge": "^3.2.2",
+    "axios": "^1.7.7",
     "bootstrap": "^5.3.3",
+    "core-js": "^3.39.0",
     "stimulus": "^3.2.2"
   },
   "scripts": {
@@ -10,7 +14,13 @@
     "build": "encore production"
   },
   "devDependencies": {
+    "@babel/core": "^7.26.0",
+    "@babel/plugin-transform-runtime": "^7.25.9",
+    "@babel/preset-env": "^7.26.0",
     "@symfony/webpack-encore": "^5.0.1",
+    "babel-loader": "^9.2.1",
+    "webpack": "^5.96.1",
+    "webpack-cli": "^5.1.4",
     "webpack-notifier": "^1.15.0"
   }
 }

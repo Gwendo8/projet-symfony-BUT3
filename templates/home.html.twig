@@ -1,4 +1,12 @@
-<h1>{{ 'hello_world'|trans }}</h1>
-<p>{{ 'welcome_message'|trans }}</p>
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Stimulus Example</title>
+        {{ encore_entry_link_tags('app') }}
+    </head>
+    <body>
+        <div data-controller="cart"></div>
 
-<div data-controller="hello"></div>
+        {{ encore_entry_script_tags('app') }}
+    </body>
+</html>

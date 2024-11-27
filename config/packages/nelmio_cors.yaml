@@ -1,0 +1,10 @@
+nelmio_cors:
+    defaults:
+        origin_regex: false  # Désactive l'utilisation d'une expression régulière pour l'origine
+        allow_origin: ['*']  # Ou l'URL exacte du frontend
+        allow_methods: ['GET', 'OPTIONS', 'POST', 'PUT', 'PATCH', 'DELETE']
+        allow_headers: ['Content-Type', 'Authorization']
+        expose_headers: ['Link']
+        max_age: 3600
+    paths:
+        '^/': null

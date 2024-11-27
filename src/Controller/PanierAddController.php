@@ -16,13 +16,16 @@ class PanierAddController extends AbstractController{
         $productId = $request->request->get('product_id');
         $quantity = $request->request->get('quantity');
 
+        // Vérification du produit dans la base de données
         $product = $productRepository->find($productId);
 
         if (!$product) {
-            $this->addFlash('error', 'Produit introuvable.');
-            return $this->redirectToRoute('app_product_index');
+            return $this->json([
+                'error' => 'Produit introuvable.',
+            ], Response::HTTP_NOT_FOUND);
         }
 
+        // Récupération du panier depuis la session
         $panier = $session->get('panier', []);
 
         if (isset($panier[$productId])) {
@@ -35,12 +38,17 @@ class PanierAddController extends AbstractController{
             ];
         }
 
+        // Mise à jour du panier dans la session
         $session->set('panier', $panier);
 
-        $this->addFlash('success', 'Produit ajouté au panier.');
+        // Calcul du total du panier
+        $total = array_sum(array_map(fn($item) => $item['price'] * $item['quantity'], $panier));
 
-        return $this->render('product_user/index.html.twig', [
-            'products' => $productRepository->findAll(),
+        // Retourner une réponse JSON pour le front-end
+        return $this->json([
+            'success' => 'Produit ajouté au panier.',
+            'total' => $total,
+            'itemsHTML' => $this->renderView('panier/index.html.twig', ['panier' => $panier]),
         ]);
     }
 }
