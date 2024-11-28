@@ -1,4 +1,3 @@
-
 {% extends 'base.html.twig' %}
 
 {% block stylesheets %}
@@ -70,10 +69,6 @@
 {% endblock %}
 
 {% block body %}
-        <div data-controller="cart"></div>
-
-        {{ encore_entry_script_tags('app') }}
-        
     <div class="container mt-4"> 
         {% for message in app.flashes('success') %}
             <div class="alert alert-success">
@@ -86,7 +81,7 @@
                 {{ message }}
             </div>
         {% endfor %}
-        
+
         <div class="row">
             {% for product in products %}
                 {% if product.stock > 0 %}

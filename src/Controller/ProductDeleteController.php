@@ -8,31 +8,29 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Product;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class ProductDeleteController extends AbstractController
 {
-    #[Route('/product/delete/{id}', name: 'app_product_delete')]
-    public function delete(Request $request, Product $product, EntityManagerInterface $entityManager): Response
-    {
-        $this->denyAccessUnlessGranted('ROLE_ADMIN');
-
-        if ($this->isCsrfTokenValid('delete' . $product->getId(), $request->request->get('_token'))) {
-            if ($product->getOrderItems()->isEmpty()) {
-                foreach ($product->getImages() as $image) {
-                    $entityManager->remove($image);
-                }
-                
-                $entityManager->flush(); 
-
-                $entityManager->remove($product);
-                $entityManager->flush(); 
-                
-                $this->addFlash('success', 'Produit supprimé avec succès.');
-            } else {
-                $this->addFlash('error', 'Impossible de supprimer ce produit car il fait partie d\'une commande.');
-            }
-        }
-
-        return $this->redirectToRoute('app_admin_products'); 
+    #[Route('/panier/supprimer/{productId}', name: 'app_panier_supprimer', methods: ['POST'])]
+public function supprimerDuPanier(int $productId, SessionInterface $session): JsonResponse
+{
+    $panier = $session->get('panier', []);
+    if (!isset($panier[$productId])) {
+        return $this->json(['error' => 'Produit non trouvé dans le panier'], Response::HTTP_NOT_FOUND);
     }
+
+    unset($panier[$productId]);
+
+    $session->set('panier', $panier);
+
+    $total = array_sum(array_map(fn($item) => $item['price'] * $item['quantity'], $panier));
+
+    return $this->json([
+        'success' => 'Produit supprimé du panier.',
+        'total' => $total,
+        'itemsHTML' => $this->renderView('panier/items.html.twig', ['panier' => $panier]),
+    ]);
+}
 }

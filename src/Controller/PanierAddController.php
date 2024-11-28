@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -9,7 +8,8 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\ProductRepository;
 use Symfony\Component\HttpFoundation\Response;
 
-class PanierAddController extends AbstractController{
+class PanierAddController extends AbstractController
+{
     #[Route('/panier/ajouter', name: 'app_panier_ajouter', methods: ['POST'])]
     public function ajouterAuPanier(Request $request, ProductRepository $productRepository, SessionInterface $session): Response
     {
@@ -41,6 +41,9 @@ class PanierAddController extends AbstractController{
         // Mise à jour du panier dans la session
         $session->set('panier', $panier);
 
+        // Ajout d'un message flash pour afficher un succès
+        $this->addFlash('success', 'Le produit a été ajouté au panier !');
+
         // Calcul du total du panier
         $total = array_sum(array_map(fn($item) => $item['price'] * $item['quantity'], $panier));
 
@@ -52,3 +55,4 @@ class PanierAddController extends AbstractController{
         ]);
     }
 }
+?>

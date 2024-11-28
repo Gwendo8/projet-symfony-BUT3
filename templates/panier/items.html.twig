@@ -1,0 +1,18 @@
+<tbody data-cart-target="items">
+    {% for productId, details in panier %}
+        <tr data-product-id="{{ productId }}">
+            <td>{{ details.name }}</td>
+            <td>{{ details.price }} €</td>
+            <td>
+                <form data-controller="cart" data-action="submit->cart#updateQuantity" action="{{ path('app_panier_modifier', { 'productId': productId }) }}" method="POST" class="d-inline">
+                    <input type="number" name="quantity" value="{{ details.quantity }}" min="1" class="form-control form-control-sm d-inline-block" style="width: 70px;" data-product-id="{{ productId }}">
+                    <button type="submit" class="btn btn-warning btn-sm ml-2">{{ 'cart.update'|trans }}</button>
+                </form>
+            </td>
+            <td>{{ details.price * details.quantity }} €</td>
+            <td>
+                <button class="btn btn-danger" data-action="click->cart#removeFromCart" data-product-id="{{ productId }}">Supprimer</button>
+            </td>
+        </tr>
+    {% endfor %}
+</tbody>

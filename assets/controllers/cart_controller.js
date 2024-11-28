@@ -30,16 +30,25 @@ export default class extends Controller {
     async removeFromCart(event) {
         event.preventDefault();
         const productId = event.target.dataset.productId;
-
+    
+        if (!productId) {
+            alert("Identifiant produit manquant.");
+            return;
+        }
+    
         const apiUrl = window.location.origin + `/panier/supprimer/${productId}`;
         console.log('URL de la requête:', apiUrl);
-
+    
         try {
             const response = await axios.post(apiUrl);
-            this.updateCart(response.data);
+            if (response.data.success) {
+                this.updateCart(response.data);
+            } else {
+                alert(response.data.error || "Erreur inconnue lors de la suppression.");
+            }
         } catch (error) {
             console.error('Erreur lors de la suppression du panier:', error);
-            alert("Erreur lors de la suppression du panier.");
+            alert("Une erreur est survenue lors de la suppression du panier.");
         }
     }
 
@@ -47,48 +56,51 @@ export default class extends Controller {
     async updateQuantity(event) {
         event.preventDefault();
     
-        const quantityInput = event.target.querySelector('input');
-        const productId = quantityInput.dataset.productId;
-        const quantity = parseInt(quantityInput.value, 10);
-    
-        console.log("Quantité envoyée :", quantity);
-        console.log("Product ID :", productId);
-    
-        if (isNaN(quantity) || quantity <= 0) {
-            alert("La quantité doit être un nombre valide et strictement supérieure à 0.");
-            return;
-        }
-    
-        const apiUrl = window.location.origin + `/panier/modifier/${productId}`;
-        console.log('URL de la requête:', apiUrl);
-    
-        const formData = new FormData();
-        formData.append('quantity', quantity);
+        const form = event.currentTarget;
+        const productId = form.querySelector('input[name="quantity"]').dataset.productId;
     
         try {
-            const response = await axios.post(apiUrl, formData, {
-                headers: { 'Content-Type': 'multipart/form-data' },
-            });
+            // Envoi de la requête pour mettre à jour la quantité du produit dans le panier
+            const response = await axios.post(form.action, new FormData(form));
     
-            console.log("Réponse de la requête :", response.data);
+            // Vérification du contenu de la réponse
+            console.log("Réponse reçue:", response.data);
     
-            if (response.data.success) {
-                this.updateCart(response.data);
-            } else {
-                alert(response.data.message || 'Erreur lors de la mise à jour du panier.');
+            // Mise à jour du panier avec les nouveaux éléments
+            if (this.hasItemsTarget && response.data.itemsHTML) {
+                this.itemsTarget.innerHTML = response.data.itemsHTML;
             }
+    
+            // Mise à jour du total
+            if (this.hasTotalTarget && response.data.total) {
+                this.totalTarget.innerText = `${response.data.total} €`;
+            }
+    
+            console.log(`Quantité modifiée pour le produit ${productId}`);
         } catch (error) {
-            console.error('Erreur lors de la mise à jour de la quantité :', error);
-            alert("Une erreur est survenue lors de la mise à jour de la quantité.");
+            // Affichage de l'erreur détaillée pour la gestion des erreurs côté client
+            console.error("Erreur lors de la mise à jour de la quantité.", error);
+    
+            // Optionnel: Log l'erreur pour mieux comprendre la réponse du serveur
+            if (error.response) {
+                // Affiche les détails du serveur, comme les logs du côté backend
+                console.error("Réponse du serveur:", error.response);
+                console.error("Détails de l'erreur 500:", error.response.data);
+            }
         }
     }
-
-    // Mettre à jour l'affichage du panier
     updateCart(data) {
-        // Mettre à jour le HTML des articles du panier
-        document.querySelector('[data-cart-target="items"]').innerHTML = data.itemsHTML;
-    
-        // Mettre à jour le total du panier
-        document.querySelector('[data-cart-target="total"]').innerText = `Total: ${data.total} €`;
+        if (data && data.itemsHTML && data.total !== undefined) {
+            // Mettez à jour uniquement le contenu spécifique des éléments du panier
+            this.itemsTarget.innerHTML = data.itemsHTML; // Met à jour toute la section des produits
+            this.totalTarget.innerText = `Total: ${data.total} €`; // Met à jour le total
+            
+            // Assurez-vous que les boutons de modification et la quantité restent intactes
+            document.querySelectorAll('.update-quantity-btn').forEach(button => {
+                button.addEventListener('click', this.updateQuantity);  // Attache l'événement de mise à jour de quantité
+            });
+        } else {
+            alert("Une erreur est survenue lors de la mise à jour du panier.");
+        }
     }
 }
