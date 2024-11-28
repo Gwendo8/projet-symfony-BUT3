@@ -41,16 +41,17 @@ class PanierAddController extends AbstractController
         // Mise à jour du panier dans la session
         $session->set('panier', $panier);
 
-        // Ajout d'un message flash pour afficher un succès
-        $this->addFlash('success', 'Le produit a été ajouté au panier !');
-
         // Calcul du total du panier
         $total = array_sum(array_map(fn($item) => $item['price'] * $item['quantity'], $panier));
+
+        // Calcul du nombre d'articles
+        $cartCount = array_sum(array_map(fn($item) => $item['quantity'], $panier));
 
         // Retourner une réponse JSON pour le front-end
         return $this->json([
             'success' => 'Produit ajouté au panier.',
             'total' => $total,
+            'cartCount' => $cartCount,  // Nombre d'articles dans le panier
             'itemsHTML' => $this->renderView('panier/index.html.twig', ['panier' => $panier]),
         ]);
     }

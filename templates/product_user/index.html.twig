@@ -65,22 +65,46 @@
             font-size: 1.2rem;  /* Augmente la taille de la police */
             margin-top: 5px;  /* Réduit l'espace entre le bouton et la quantité */
         }
+
+        /* Positionnement de l'icône du panier à droite */
+        .cart-icon {
+            position: fixed;
+            top: 10px;  /* Positionné à 10px du haut */
+            right: 10px; /* Positionné à 10px de la droite */
+            z-index: 1000;  /* Assure que l'icône est toujours au-dessus des autres éléments */
+            display: flex;  /* Utiliser flex pour aligner l'icône et le compteur */
+            align-items: center;  /* Aligner l'icône et le compteur verticalement */
+        }
+
+        .cart-icon i {
+            font-size: 24px;  /* Ajuster la taille de l'icône */
+        }
+
+        .cart-count {
+            position: relative;
+            background-color: red;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 50%;
+            font-size: 14px;
+            margin-left: 5px;  /* Espacement entre l'icône et le compteur */
+        }
     </style>
 {% endblock %}
 
 {% block body %}
-    <div class="container mt-4"> 
+    <div class="container mt-4">
         {% for message in app.flashes('success') %}
             <div class="alert alert-success">
                 {{ message }}
             </div>
         {% endfor %}
 
-        {% for message in app.flashes('error') %}
-            <div class="alert alert-danger">
-                {{ message }}
-            </div>
-        {% endfor %}
+        <!-- Affichage du panier avec le nombre d'articles -->
+        <div class="cart-icon">
+            <i class="fa fa-shopping-cart"></i>
+            <span class="cart-count" data-cart-count="0">0</span> <!-- Le nombre d'articles sera mis à jour via Stimulus -->
+        </div>
 
         <div class="row">
             {% for product in products %}
@@ -99,7 +123,7 @@
                                         <input type="hidden" name="product_id" value="{{ product.id }}">
                                         <div class="d-flex flex-column align-items-center">
                                             <input type="number" name="quantity" value="1" min="1" max="{{ product.stock }}" class="form-control mb-2" style="width: 80px; text-align: center;">
-                                            <button type="submit" class="btn btn-success">{{ 'product.add_to_cart'|trans }}</button> <!-- Bouton plus grand ici -->
+                                            <button type="submit" class="btn btn-success">{{ 'product.add_to_cart'|trans }}</button>
                                         </div>
                                     </form>
                                 </div>
