@@ -17,15 +17,40 @@ export default class extends Controller {
         event.preventDefault();
         const formData = new FormData(event.target);
         const apiUrl = window.location.origin + '/panier/ajouter';
-
+    
         try {
             const response = await axios.post(apiUrl, formData);
-            this.updateCart(response.data);
+            console.log(response.data);  // Vérifie la structure de la réponse ici
+            if (response.data.success) {
+                this.updateCart(response.data);  // Met à jour le panier avec les données reçues
+            } else {
+                console.error("Erreur côté serveur :", response.data);
+            }
         } catch (error) {
             console.error('Erreur lors de l\'ajout au panier', error);
         }
     }
-
+    
+    updateCart(data) {
+        if (data.success) {
+            if (this.hasCartCountTarget && data.cartCount !== undefined) {
+                console.log("Mise à jour du compteur du panier", data.cartCount);
+                this.cartCountTarget.innerText = data.cartCount;  // Mise à jour du compteur
+            }
+    
+            if (this.hasTotalTarget && data.total !== undefined) {
+                console.log("Mise à jour du total", data.total);
+                this.totalTarget.innerText = `${data.total} €`;
+            }
+    
+            if (this.hasItemsTarget && data.itemsHTML) {
+                console.log("Mise à jour des éléments du panier");
+                this.itemsTarget.innerHTML = data.itemsHTML;
+            }
+        } else {
+            console.error("Erreur lors de la mise à jour du panier.", data);
+        }
+    }
     // Fonction pour supprimer un produit du panier
     async removeFromCart(event) {
         event.preventDefault();
@@ -37,7 +62,6 @@ export default class extends Controller {
         }
 
         const apiUrl = window.location.origin + `/panier/supprimer/${productId}`;
-        console.log('URL de la requête:', apiUrl);
 
         try {
             const response = await axios.post(apiUrl);
@@ -62,41 +86,20 @@ export default class extends Controller {
         try {
             const response = await axios.post(form.action, new FormData(form));
 
-            console.log("Réponse reçue:", response.data);
-
             if (this.hasItemsTarget && response.data.itemsHTML) {
                 this.itemsTarget.innerHTML = response.data.itemsHTML;
             }
 
-            if (this.hasTotalTarget && response.data.total) {
+            if (this.hasTotalTarget && response.data.total !== undefined) {
                 this.totalTarget.innerText = `${response.data.total} €`;
             }
 
             if (this.hasCartCountTarget && response.data.cartCount !== undefined) {
-                this.cartCountTarget.innerText = response.data.cartCount;
+                this.cartCountTarget.innerText = response.data.cartCount;  // Mise à jour du nombre d'articles
             }
 
-            console.log(`Quantité modifiée pour le produit ${productId}`);
         } catch (error) {
             console.error("Erreur lors de la mise à jour de la quantité.", error);
-        }
-    }
-
-    // Fonction pour mettre à jour les informations du panier après une action
-    updateCart(data) {
-        if (data && data.itemsHTML && data.total !== undefined) {
-            this.itemsTarget.innerHTML = data.itemsHTML;
-            this.totalTarget.innerText = `Total: ${data.total} €`;
-
-            if (this.hasCartCountTarget && data.cartCount !== undefined) {
-                this.cartCountTarget.innerText = data.cartCount;  // Mise à jour du nombre d'articles
-            }
-
-            document.querySelectorAll('.update-quantity-btn').forEach(button => {
-                button.addEventListener('click', this.updateQuantity);  
-            });
-        } else {
-            alert("Une erreur est survenue lors de la mise à jour du panier.");
         }
     }
 }

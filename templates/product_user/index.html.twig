@@ -77,7 +77,7 @@
         }
 
         .cart-icon i {
-            font-size: 24px;  /* Ajuster la taille de l'icône */
+            font-size: 20px;  /* Ajuster la taille de l'icône */
         }
 
         .cart-count {
@@ -86,7 +86,7 @@
             color: white;
             padding: 5px 10px;
             border-radius: 50%;
-            font-size: 14px;
+            font-size: 10px;
             margin-left: 5px;  /* Espacement entre l'icône et le compteur */
         }
     </style>
@@ -99,12 +99,6 @@
                 {{ message }}
             </div>
         {% endfor %}
-
-        <!-- Affichage du panier avec le nombre d'articles -->
-        <div class="cart-icon">
-            <i class="fa fa-shopping-cart"></i>
-            <span class="cart-count" data-cart-count="0">0</span> <!-- Le nombre d'articles sera mis à jour via Stimulus -->
-        </div>
 
         <div class="row">
             {% for product in products %}
@@ -142,4 +136,11 @@
             <a href="{{ path('app_panier') }}" class="btn btn-primary btn-lg">{{ 'product.view_cart'|trans }}</a>
         </div>
     </div>
+
+    <!-- Icône du panier avec compteur -->
+   <div class="cart-icon">
+    <i class="fas fa-shopping-cart"></i>
+<span data-cart-target="cartCount">{{ cartCount }}</span>
+</div>
+
 {% endblock %}
