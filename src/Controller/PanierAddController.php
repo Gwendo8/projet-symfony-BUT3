@@ -53,10 +53,12 @@ public function ajouterAuPanier(Request $request, ProductRepository $productRepo
     // Retourner une réponse JSON pour le front-end avec le total, le nombre d'articles et la mise à jour du panier
 // Retour de la réponse avec cartCount dans la réponse JSON
 return $this->json([
-    'success' => 'Produit ajouté au panier.',
+    'success' => true,
     'total' => $total,
-    'cartCount' => $cartCount,  // Nombre d'articles dans le panier
-    'itemsHTML' => $this->renderView('panier/index.html.twig', ['panier' => $panier, 'cartCount' => $cartCount]),
+    'cartCount' => $cartCount,  // Met à jour le nombre d'articles
+    'itemsHTML' => $this->renderView('panier/index.html.twig', [
+        'panier' => $panier
+    ]),
 ]);
 }
 }

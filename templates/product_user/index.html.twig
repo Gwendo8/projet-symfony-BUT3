@@ -143,4 +143,14 @@
 <span data-cart-target="cartCount">{{ cartCount }}</span>
 </div>
 
+<div data-controller="cart">
+    <input
+        type="text"
+        placeholder="Rechercher un produit"
+        data-cart-target="searchInput"
+        data-action="input->cart#search"
+    />
+    <ul data-cart-target="searchResults" class="search-results"></ul>
+</div>
+
 {% endblock %}
