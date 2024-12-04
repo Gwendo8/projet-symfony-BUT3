@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gestion des cartes bancaires{% endblock %}
+
+{% block body %}
+    <h1>Gestion des cartes bancaires</h1>
+    <section>
+        {{ component('credit_card_form', { user: app.user }) }}
+    </section>
+{% endblock %}

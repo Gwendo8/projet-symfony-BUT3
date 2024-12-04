@@ -3,12 +3,12 @@
 {% block stylesheets %}
     <style>
         .product-image {
-            width: 40%;  /* L'image occupe 50% de la largeur de la carte */
+            width: 40%;
             max-height: 200px;
             object-fit: cover;
-            display: block;  /* Important pour centrer l'image */
-            margin-left: auto;  /* Centrer l'image à gauche */
-            margin-right: auto; /* Centrer l'image à droite */
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .card {
@@ -16,19 +16,19 @@
             flex-direction: column;
             justify-content: space-between;
             height: 100%;
-            text-align: center;  /* Centre le texte dans la carte */
+            text-align: center;
         }
 
         .card-body {
             display: flex;
             flex-direction: column;
             justify-content: center;
-            align-items: center;  /* Centre les éléments horizontalement */
-            text-align: center;  /* Centre le texte */
+            align-items: center;
+            text-align: center;
         }
 
         .product-info {
-            margin-bottom: 10px; /* Réduit l'espace sous les infos produit */
+            margin-bottom: 10px;
         }
 
         .product-info h5 {
@@ -41,16 +41,16 @@
         }
 
         .product-quantity {
-            margin-bottom: 1px; /* Réduit l'espace sous la quantité */
+            margin-bottom: 1px;
             display: flex;
             flex-direction: column;
-            align-items: center;  /* Centre la quantité et le bouton */
+            align-items: center;
         }
 
         .product-quantity input {
-            width: 80px;  /* Largeur du champ de quantité */
-            text-align: center;  /* Centre la valeur numérique */
-            margin-bottom: 10px;  /* Ajoute de l'espace entre l'input et le bouton */
+            width: 80px;
+            text-align: center;
+            margin-bottom: 10px;
         }
 
         .card-footer {
@@ -61,23 +61,22 @@
         }
 
         .card-footer .btn {
-            padding: 1rem 2rem;  /* Augmente le padding pour un bouton plus grand */
-            font-size: 1.2rem;  /* Augmente la taille de la police */
-            margin-top: 5px;  /* Réduit l'espace entre le bouton et la quantité */
+            padding: 1rem 2rem;
+            font-size: 1.2rem;
+            margin-top: 5px;
         }
 
-        /* Positionnement de l'icône du panier à droite */
         .cart-icon {
             position: fixed;
-            top: 10px;  /* Positionné à 10px du haut */
-            right: 10px; /* Positionné à 10px de la droite */
-            z-index: 1000;  /* Assure que l'icône est toujours au-dessus des autres éléments */
-            display: flex;  /* Utiliser flex pour aligner l'icône et le compteur */
-            align-items: center;  /* Aligner l'icône et le compteur verticalement */
+            top: 10px;
+            right: 10px;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
         }
 
         .cart-icon i {
-            font-size: 20px;  /* Ajuster la taille de l'icône */
+            font-size: 20px;
         }
 
         .cart-count {
@@ -87,13 +86,81 @@
             padding: 5px 10px;
             border-radius: 50%;
             font-size: 10px;
-            margin-left: 5px;  /* Espacement entre l'icône et le compteur */
+            margin-left: 5px;
+        }
+
+        [data-cart-target="searchInput"] {
+            width: 100%;
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 10px 15px;
+            border: 2px solid #007bff;
+            border-radius: 25px;
+            font-size: 1rem;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            outline: none;
+            transition: box-shadow 0.3s, border-color 0.3s;
+        }
+
+        [data-cart-target="searchInput"]:focus {
+            border-color: #0056b3;
+            box-shadow: 0px 4px 10px rgba(0, 91, 187, 0.4);
+        }
+
+        [data-controller="cart"] {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        #cart-items {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            display: flex;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .cart-icon {
+            margin-left: 10px;
+        }
+
+        .credit-card-icon {
+            margin-right: 50px;
+        }
+
+        .cart-icon i, .credit-card-icon i {
+            font-size: 20px;
+            color: black;
+        }
+
+        .cart-count {
+            position: relative;
+            background-color: red;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 50%;
+            font-size: 10px;
+            margin-left: 5px;
         }
     </style>
 {% endblock %}
 
 {% block body %}
     <div class="container mt-4">
+
+        <!-- Barre de recherche placée ici, avant les produits -->
+        <div data-controller="cart">
+            <input
+                type="text"
+                placeholder="Rechercher un produit"
+                data-cart-target="searchInput"
+                data-action="input->cart#search"
+            />
+            <ul data-cart-target="searchResults" class="search-results"></ul>
+        </div>
+
         {% for message in app.flashes('success') %}
             <div class="alert alert-success">
                 {{ message }}
@@ -137,20 +204,16 @@
         </div>
     </div>
 
-    <!-- Icône du panier avec compteur -->
-   <div class="cart-icon">
-    <i class="fas fa-shopping-cart"></i>
-<span data-cart-target="cartCount">{{ cartCount }}</span>
-</div>
+    <div id="cart-items">
+        <div class="cart-icon">
+            <i class="fas fa-shopping-cart"></i>
+            <span data-cart-target="cartCount">{{ cartCount }}</span>
+        </div>
 
-<div data-controller="cart">
-    <input
-        type="text"
-        placeholder="Rechercher un produit"
-        data-cart-target="searchInput"
-        data-action="input->cart#search"
-    />
-    <ul data-cart-target="searchResults" class="search-results"></ul>
-</div>
-
+        <div class="credit-card-icon">
+            <a href="{{ path('add_credit_card') }}">
+                <i class="fas fa-credit-card"></i>
+            </a>
+        </div>
+    </div>
 {% endblock %}

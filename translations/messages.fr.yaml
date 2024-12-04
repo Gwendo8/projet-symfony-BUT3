@@ -122,3 +122,12 @@ utilisateurs: 'Utilisateurs'
 orders: 'Commandes'
 dashboard: 'Tableau de bord'
 logout: 'Déconnexion'
+
+#credit-card
+credit_card_form:
+  number: Numéro de carte
+  expiration_date: Date d'expiration
+  cvv: CVV
+  remove: Supprimer
+  add: Ajouter une autre carte
+  submit: Soumettre

@@ -51,6 +51,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Address::class, mappedBy: 'user')]
     private Collection $adresses;
 
+    /**
+     
+*@var Collection<int, CreditCard>*/#[ORM\OneToMany(targetEntity: CreditCard::class, mappedBy: 'user', cascade: ['persist','remove'],orphanRemoval: true)]
+  private Collection $creditCards;
+
+
+
     public function __construct()
     {
         $this->orders = new ArrayCollection();
@@ -217,4 +224,39 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     return $this->firstname . ' ' . $this->lastname;
 }
+
+/**
+     
+* @return Collection<int, CreditCard>
+*/
+public function getCreditCards(): Collection{
+    return $this->creditCards;}
+
+  public function addCreditCard(CreditCard $creditCard): static
+  {
+      // Vérifie si la carte n'est pas déjà présente dans la collection
+      if (!$this->creditCards->contains($creditCard)) {
+          // Ajoute la carte à la collection de cartes de l'utilisateur
+          $this->creditCards->add($creditCard);
+
+          // Synchronise la relation en associant l'utilisateur à la carte
+          $creditCard->setUser($this);
+      }
+
+      // Retourne l'objet utilisateur pour permettre le chaînage des méthodes
+      return $this;
+  }
+
+  public function removeCreditCard(CreditCard $creditCard): static
+  {
+      if ($this->creditCards->removeElement($creditCard)) {
+          // set the owning side to null (unless already changed)
+          if ($creditCard->getUser() === $this) {
+              $creditCard->setUser(null);
+          }
+      }
+
+      return $this;
+  }
+
 }

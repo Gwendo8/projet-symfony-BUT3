@@ -10,30 +10,24 @@ use Symfony\Component\HttpFoundation\Response;
 
 class PanierAddController extends AbstractController
 {
-    // PanierAddController.php
-#[Route('/panier/ajouter', name: 'app_panier_ajouter', methods: ['POST'])]
+    #[Route('/panier/ajouter', name: 'app_panier_ajouter', methods: ['POST'])]
 public function ajouterAuPanier(Request $request, ProductRepository $productRepository, SessionInterface $session): Response
 {
     $productId = $request->request->get('product_id');
     $quantity = $request->request->get('quantity');
 
-    // Vérification du produit dans la base de données
     $product = $productRepository->find($productId);
 
     if (!$product) {
-        return $this->json([
-            'error' => 'Produit introuvable.',
-        ], Response::HTTP_NOT_FOUND);
+        return $this->json(['error' => 'Produit introuvable.'], Response::HTTP_NOT_FOUND);
     }
 
-    // Récupération du panier depuis la session
+    // Récupérer le panier existant dans la session
     $panier = $session->get('panier', []);
 
     if (isset($panier[$productId])) {
-        // Si le produit est déjà dans le panier, on augmente la quantité
         $panier[$productId]['quantity'] += $quantity;
     } else {
-        // Si le produit n'est pas dans le panier, on l'ajoute
         $panier[$productId] = [
             'name' => $product->getName(),
             'price' => $product->getPrice(),
@@ -41,25 +35,23 @@ public function ajouterAuPanier(Request $request, ProductRepository $productRepo
         ];
     }
 
-    // Mise à jour du panier dans la session
     $session->set('panier', $panier);
 
-    // Calcul du total du panier
+    // Calculer le total et le nombre d'articles
     $total = array_sum(array_map(fn($item) => $item['price'] * $item['quantity'], $panier));
-
-    // Calcul du nombre d'articles dans le panier
     $cartCount = array_sum(array_map(fn($item) => $item['quantity'], $panier));
 
-    // Retourner une réponse JSON pour le front-end avec le total, le nombre d'articles et la mise à jour du panier
-// Retour de la réponse avec cartCount dans la réponse JSON
-return $this->json([
-    'success' => true,
-    'total' => $total,
-    'cartCount' => $cartCount,  // Met à jour le nombre d'articles
-    'itemsHTML' => $this->renderView('panier/index.html.twig', [
-        'panier' => $panier
-    ]),
-]);
+    // Générer le HTML mis à jour du panier
+    $itemsHTML = $this->renderView('panier/items.html.twig', [
+        'panier' => $panier,
+    ]);
+
+    return $this->json([
+        'success' => true,
+        'total' => $total,
+        'cartCount' => $cartCount,
+        'itemsHTML' => $itemsHTML,  // Renvoie le HTML mis à jour
+    ]);
 }
 }
 ?>

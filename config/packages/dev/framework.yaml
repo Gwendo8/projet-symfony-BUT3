@@ -1,0 +1,5 @@
+framework:
+    profiler:
+        only_exceptions: false
+    secret: '%env(APP_SECRET)%'
+    session: true
