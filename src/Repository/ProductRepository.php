@@ -32,16 +32,15 @@ class ProductRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
-    // src/Repository/ProductRepository.php
 public function findByPartialName(string $name): array
 {
     return $this->createQueryBuilder('p')
-        ->select('p.id, p.name, p.price') // On sélectionne seulement les données nécessaires
+        ->select('p.id, p.name, p.price') 
         ->where('p.name LIKE :name')
         ->setParameter('name', '%' . $name . '%')
-        ->setMaxResults(10) // Limite les résultats pour améliorer les performances
+        ->setMaxResults(10) 
         ->getQuery()
-        ->getArrayResult(); // Retourne un tableau associatif pour l'API JSON
+        ->getArrayResult();
 }
 
 

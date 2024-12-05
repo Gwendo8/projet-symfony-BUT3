@@ -11,17 +11,15 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
 class ProductUserController extends AbstractController
 {
     #[Route('/produits/user', name: 'app_product_index')]
-    // ProductUserController.php
 public function index(SessionInterface $session, ProductRepository $productRepository)
 {
     $products = $productRepository->findAll();
-    // Récupérer le panier depuis la session pour calculer le nombre d'articles
     $panier = $session->get('panier', []);
     $cartCount = array_sum(array_map(fn($item) => $item['quantity'], $panier));
 
     return $this->render('product_user/index.html.twig', [
         'products' => $products,
-        'cartCount' => $cartCount,  // Passer le nombre d'articles dans le panier
+        'cartCount' => $cartCount, 
     ]);
 }
 }

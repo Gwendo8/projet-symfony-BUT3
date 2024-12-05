@@ -16,7 +16,7 @@
         <tbody>
         {% for card in creditCards %}
             <tr>
-                <td>  ** {{ card.number|slice(-4) }}</td>
+                <td>{{ card.number|slice(-4) }}</td>
                 <td>{{ card.expirationDate|date('m/Y') }}</td>
                 <td>{{ card.cvv }}</td>
             </tr>

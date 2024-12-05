@@ -151,26 +151,22 @@ public function calculateTotalAmount(): float
     }
     return $total;
 }
-// src/Entity/Order.php
 
 public function validateOrder(): bool
 {
     foreach ($this->orderItems as $orderItem) {
         $product = $orderItem->getProduct();
         
-        // Vérification du stock disponible
         if (!$product->isAvailable($orderItem->getQuantity())) {
-            return false; // Si le stock n'est pas suffisant, on ne valide pas la commande
+            return false; 
         }
     }
 
-    // Mise à jour du stock pour chaque produit commandé
     foreach ($this->orderItems as $orderItem) {
         $product = $orderItem->getProduct();
         $product->setStock($product->getStock() - $orderItem->getQuantity());
     }
 
-    // Mise à jour du statut de la commande
     $this->setStatus(OrderStatus::Validee);
 
     return true;

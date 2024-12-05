@@ -17,7 +17,7 @@ class OrderRepository extends ServiceEntityRepository
     }
 
     /**
-     * Récupère les ventes mensuelles des 12 derniers mois.
+     * 
      *
      * @return array
      */

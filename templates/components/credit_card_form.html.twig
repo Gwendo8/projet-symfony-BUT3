@@ -1,5 +1,7 @@
 <div {{ attributes }}>
     {{ form_start(form) }}
+    {{ dump(form) }}
+
     <div id="credit-card-forms" class="mb-4">
         {% for key, creditCardForm in form.creditCards %}
             <div class="credit-card-form mb-3 p-3 border rounded shadow-sm">
@@ -24,7 +26,7 @@
                         {{ form_errors(creditCardForm.cvv) }}
                     </div>
                 </div>
-                <button class="btn btn-danger btn-sm mt-2" data-action="live#action" data-live-action-param="removeCreditCard" data-live-index-param="{{ key }}" type="button">
+                <button class="btn btn-danger btn-sm mt-2" data-action="live#action" data-live-action-param=" eCreditCard" data-live-index-param="{{ key }}" type="button">
                     {{ 'credit_card_form.remove'|trans }}
                 </button>
             </div>

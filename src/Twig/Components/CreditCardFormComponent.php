@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Twig\Component;
+namespace App\Twig\Components;
 
 use App\Entity\CreditCard;
 use App\Entity\User;
@@ -21,7 +21,6 @@ use Symfony\UX\LiveComponent\DefaultActionTrait;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 
-
 #[AsLiveComponent('credit_card_form')]
 class CreditCardFormComponent extends AbstractController
 {
@@ -33,6 +32,7 @@ class CreditCardFormComponent extends AbstractController
 
     #[LiveProp]
     public array $forms = [];
+
 
     #[LiveProp]
     public ?CreditCard $initialFormData = null;
@@ -57,7 +57,7 @@ class CreditCardFormComponent extends AbstractController
     }
 
 
-    public function mount(CreditCard $creditCard = null): void
+    public function mount(?CreditCard $creditCard = null): void
     {
         $this->creditCard = $creditCard ?? new CreditCard();
         $this->creditCard->setUser($this->security->getUser());
@@ -68,44 +68,48 @@ class CreditCardFormComponent extends AbstractController
     #[LiveAction]
     public function removeCreditCard(#[LiveArg] int $index): void
     {
+        dd($index);
         unset($this->formValues['creditCards'][$index]);
     }
     #[LiveAction]
-    public function addCreditCard(): void
-    {
-        $newCreditCard = new CreditCard();
-        $newCreditCard->setNumber('');
-        $newCreditCard->setExpirationDate(new \DateTime());
-        $newCreditCard->setCvv('');
-        $this->formValues['creditCards'][] = $newCreditCard;
+public function addCreditCard(): void
+{
+    dd('addCreditCard called');
+    $newCreditCard = new CreditCard();
+    $newCreditCard->setNumber('');
+    $newCreditCard->setExpirationDate(new \DateTime());
+    $newCreditCard->setCvv('');
+    $this->formValues['creditCards'][] = $newCreditCard;
+}
+
+
+#[LiveAction]
+public function save(EntityManagerInterface $entityManager): Response
+{
+    dd($this->formValues);
+    $this->submitForm();
+
+    /** @var User $user */
+    $user = $this->getForm()->getData();
+    $existingCards = $this->entityManager->getRepository(CreditCard::class)
+        ->findBy(['user' => $user]);
+    foreach ($existingCards as $existingCard) {
+        if (!$user->getCreditCards()->contains($existingCard)) {
+            $user->addCreditCard($existingCard);
+        }
+    }
+    foreach ($user->getCreditCards() as $creditCard) {
+        if (!$creditCard->getId()) {
+            $creditCard->setUser($user);
+            $entityManager->persist($creditCard);
+        }
     }
 
-    #[LiveAction]
-    public function save(EntityManagerInterface $entityManager): Response
-    {
-        $this->submitForm();
+    $entityManager->persist($user);
+    $entityManager->flush();
 
-        /** @var User $user */
-        $user = $this->getForm()->getData();
-        $existingCards = $this->entityManager->getRepository(CreditCard::class)
-            ->findBy(['user' => $user]);
-        foreach ($existingCards as $existingCard) {
-            if (!$user->getCreditCards()->contains($existingCard)) {
-                $user->addCreditCard($existingCard);
-            }
-        }
-        foreach ($user->getCreditCards() as $creditCard) {
-            if (!$creditCard->getId()) {
-                $creditCard->setUser($user);
-                $entityManager->persist($creditCard);
-            }
-        }
+    $this->addFlash('success', 'Les cartes ont été enregistrées avec succès !');
 
-        $entityManager->persist($user);
-        $entityManager->flush();
-
-        $this->addFlash('success', 'Les cartes ont été enregistrées avec succès !');
-
-        return $this->redirectToRoute('credit_cards');
-    }
+    return $this->redirectToRoute('credit_cards');
+}
 }

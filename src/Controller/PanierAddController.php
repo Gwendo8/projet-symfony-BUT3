@@ -22,7 +22,6 @@ public function ajouterAuPanier(Request $request, ProductRepository $productRepo
         return $this->json(['error' => 'Produit introuvable.'], Response::HTTP_NOT_FOUND);
     }
 
-    // Récupérer le panier existant dans la session
     $panier = $session->get('panier', []);
 
     if (isset($panier[$productId])) {
@@ -37,20 +36,17 @@ public function ajouterAuPanier(Request $request, ProductRepository $productRepo
 
     $session->set('panier', $panier);
 
-    // Calculer le total et le nombre d'articles
     $total = array_sum(array_map(fn($item) => $item['price'] * $item['quantity'], $panier));
     $cartCount = array_sum(array_map(fn($item) => $item['quantity'], $panier));
 
-    // Générer le HTML mis à jour du panier
     $itemsHTML = $this->renderView('panier/items.html.twig', [
         'panier' => $panier,
     ]);
-
     return $this->json([
         'success' => true,
         'total' => $total,
         'cartCount' => $cartCount,
-        'itemsHTML' => $itemsHTML,  // Renvoie le HTML mis à jour
+        'itemsHTML' => $itemsHTML,
     ]);
 }
 }

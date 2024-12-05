@@ -20,7 +20,7 @@ class UserCreditCardType extends AbstractType
                 'allow_add' => true,
                 'allow_delete' => true,
                 'by_reference' => false,
-                'data' => [new CreditCard()], //add a new empty form to the page
+                'data' => [new CreditCard()], 
             ]);
         ;
     }

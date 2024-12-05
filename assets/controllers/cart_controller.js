@@ -6,6 +6,7 @@ export default class extends Controller {
 
     connect() {
         console.log("Contrôleur cart connecté");
+        console.log("test");
     }
 
     disconnect() {
@@ -20,9 +21,10 @@ export default class extends Controller {
     
         try {
             const response = await axios.post(apiUrl, formData);
-            console.log(response.data);  // Vérifie la structure de la réponse ici
+            console.log(response.data);  
             if (response.data.success) {
-                this.updateCart(response.data);  // Met à jour le panier avec les données reçues
+                console.log(response.data);
+                this.updateCart(response.data); 
             } else {
                 console.error("Erreur côté serveur :", response.data);
             }
@@ -31,23 +33,26 @@ export default class extends Controller {
         }
     }
     updateCart(data) {
-        if (data.success) {
-            // Mise à jour du compteur
-            if (this.hasCartCountTarget && data.cartCount !== undefined) {
-                console.log("Mise à jour du compteur de panier :", data.cartCount);
-                this.cartCountTarget.textContent = data.cartCount; // Mise à jour directe sans animation
-            }
-    
-            // Mise à jour du total
-            if (this.hasTotalTarget && data.total !== undefined) {
-                console.log("Mise à jour du total :", data.total);
-                this.totalTarget.textContent = `${data.total} €`;
-            }
-    
-            // Mise à jour des items
-            if (this.hasItemsTarget && data.itemsHTML) {
-                console.log("Mise à jour des items du panier");
-                this.itemsTarget.innerHTML = data.itemsHTML;
+                    console.log(data);
+                    if (data.success) {
+                        console.log(this.hasCartCountTarget);
+                        console.log(this.hasCartCountTarget && data.cartCount !== undefined);
+                        // Mise à jour du compteur
+                        if (this.hasCartCountTarget && data.cartCount !== undefined) {
+                            console.log("Mise à jour du compteur de panier :", data.cartCount);
+                            this.cartCountTarget.textContent = data.cartCount;
+                        }
+
+                        // Mise à jour du total
+                        if (this.hasTotalTarget && data.total !== undefined) {
+                            console.log("Mise à jour du total :", data.total);
+                            this.totalTarget.textContent = `${data.total} €`;
+                        }
+
+                        // Mise à jour des items
+                        if (this.hasItemsTarget && data.itemsHTML) {
+                            console.log("Mise à jour des items du panier");
+                            this.itemsTarget.innerHTML = data.itemsHTML;
             }
         } else {
             console.error("Erreur lors de la mise à jour du panier :", data);
@@ -97,19 +102,19 @@ export default class extends Controller {
             }
 
             if (this.hasCartCountTarget && response.data.cartCount !== undefined) {
-                this.cartCountTarget.innerText = response.data.cartCount;  // Mise à jour du nombre d'articles
+                this.cartCountTarget.innerText = response.data.cartCount;  
             }
 
         } catch (error) {
             console.error("Erreur lors de la mise à jour de la quantité.", error);
         }
     }
-     // Recherche dynamique des produits
+     //Fonction pour la recherche
      async search(event) {
         const query = this.searchInputTarget.value.trim();
 
         if (query.length === 0) {
-            this.searchResultsTarget.innerHTML = ""; // Efface les résultats si le champ est vide
+            this.searchResultsTarget.innerHTML = ""; 
             return;
         }
 
@@ -119,7 +124,6 @@ export default class extends Controller {
             const response = await axios.get(apiUrl);
             const products = response.data;
 
-            // Génère les résultats sous forme de liste
             this.searchResultsTarget.innerHTML = products.length
                 ? products
                       .map(

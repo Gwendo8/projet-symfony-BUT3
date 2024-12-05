@@ -133,8 +133,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function eraseCredentials(): void
     {
-        // If you store any temporary, sensitive data on the user, clear it here
-        // $this->plainPassword = null;
     }
 
     public function getFirstname(): ?string
@@ -182,7 +180,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function removeOrder(Order $order): static
     {
         if ($this->orders->removeElement($order)) {
-            // set the owning side to null (unless already changed)
             if ($order->getUser() === $this) {
                 $order->setUser(null);
             }
@@ -212,7 +209,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function removeAdress(Address $adress): static
     {
         if ($this->adresses->removeElement($adress)) {
-            // set the owning side to null (unless already changed)
             if ($adress->getUser() === $this) {
                 $adress->setUser(null);
             }
@@ -234,23 +230,16 @@ public function getCreditCards(): Collection{
 
   public function addCreditCard(CreditCard $creditCard): static
   {
-      // Vérifie si la carte n'est pas déjà présente dans la collection
       if (!$this->creditCards->contains($creditCard)) {
-          // Ajoute la carte à la collection de cartes de l'utilisateur
           $this->creditCards->add($creditCard);
-
-          // Synchronise la relation en associant l'utilisateur à la carte
           $creditCard->setUser($this);
       }
-
-      // Retourne l'objet utilisateur pour permettre le chaînage des méthodes
       return $this;
   }
 
   public function removeCreditCard(CreditCard $creditCard): static
   {
       if ($this->creditCards->removeElement($creditCard)) {
-          // set the owning side to null (unless already changed)
           if ($creditCard->getUser() === $this) {
               $creditCard->setUser(null);
           }

@@ -18,10 +18,8 @@ class CreditCardController extends AbstractController
     #[Route('/credit-cards', name: 'credit_cards')]
     public function list(EntityManagerInterface $entityManager): Response
     {
-        // Récupérer toutes les cartes enregistrées
         $creditCards = $entityManager->getRepository(CreditCard::class)->findAll();
 
-        // Renvoyer la vue avec les cartes
         return $this->render('credit_card/list.html.twig', [
             'creditCards' => $creditCards,
         ]);
@@ -30,7 +28,8 @@ class CreditCardController extends AbstractController
     #[Route('/add-credit-card', name: 'add_credit_card')]
     public function add(): Response
     {
-        return $this->render('credit_card/index.html.twig');
-    }
+        return $this->render('credit_card/index.html.twig', [
+            'user' => $this->getUser()
+        ]);    }
 }
 ?>

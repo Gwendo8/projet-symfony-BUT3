@@ -31,7 +31,7 @@ class CreditCard
     private ?string $cvv = null;
 
     #[ORM\ManyToOne(cascade: ['persist', 'remove'], inversedBy: 'creditCards')]
-    #[ORM\JoinColumn(nullable: false)] // L'utilisateur est obligatoire
+    #[ORM\JoinColumn(nullable: false)] 
     private ?User $user = null;
 
     public function getId(): ?int
