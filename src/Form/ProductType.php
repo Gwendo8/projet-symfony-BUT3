@@ -16,6 +16,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use App\Enum\ProductStatus; 
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Form\Extension\Core\Type\UrlType;
+
 class ProductType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -25,6 +27,11 @@ class ProductType extends AbstractType
                 'constraints' => [
                     new NotBlank(['message' => 'Le nom ne peut pas être vide.']),
                 ],
+            ])
+            ->add('image_url', UrlType::class, [
+                'mapped' => false, 
+                'required' => false,
+                'label' => 'URL de l\'image',
             ])
             ->add('category', EntityType::class, [
                 'class' => Category::class,
