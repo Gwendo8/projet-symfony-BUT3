@@ -7,6 +7,7 @@ export default class extends Controller {
     connect() {
         console.log("Contrôleur cart connecté");
         console.log("test");
+        console.log(this.hasCartCountTarget);
     }
 
     disconnect() {
@@ -34,8 +35,10 @@ export default class extends Controller {
     }
     updateCart(data) {
                     console.log(data);
+                    console.log("Cart count avant mise à jour : ", data.cartCount);
                     if (data.success) {
-                        console.log(this.hasCartCountTarget);
+                        console.log("Cart count après mise à jour : ", data.cartCount);
+                        console.log('hasCartCountTarget : ',this.hasCartCountTarget);
                         console.log(this.hasCartCountTarget && data.cartCount !== undefined);
                         // Mise à jour du compteur
                         if (this.hasCartCountTarget && data.cartCount !== undefined) {

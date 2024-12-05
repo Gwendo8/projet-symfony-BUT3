@@ -1,217 +1,220 @@
 {% extends 'base.html.twig' %}
 
 {% block stylesheets %}
-    <style>
-        .product-image {
-            width: 40%;
-            max-height: 200px;
-            object-fit: cover;
-            display: block;
-            margin-left: auto;
-            margin-right: auto;
-        }
+	<style>
+		.product-image {
+			width: 40%;
+			max-height: 200px;
+			object-fit: cover;
+			display: block;
+			margin-left: auto;
+			margin-right: auto;
+		}
 
-        .card {
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            height: 100%;
-            text-align: center;
-        }
+		.card {
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+			height: 100%;
+			text-align: center;
+		}
 
-        .card-body {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-        }
+		.card-body {
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+			text-align: center;
+		}
 
-        .product-info {
-            margin-bottom: 10px;
-        }
+		.product-info {
+			margin-bottom: 10px;
+		}
 
-        .product-info h5 {
-            font-size: 1.2rem;
-            color: #007bff;
-        }
+		.product-info h5 {
+			font-size: 1.2rem;
+			color: #007bff;
+		}
 
-        .product-info p {
-            margin: 0.5rem 0;
-        }
+		.product-info p {
+			margin: 0.5rem 0;
+		}
 
-        .product-quantity {
-            margin-bottom: 1px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
+		.product-quantity {
+			margin-bottom: 1px;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+		}
 
-        .product-quantity input {
-            width: 80px;
-            text-align: center;
-            margin-bottom: 10px;
-        }
+		.product-quantity input {
+			width: 80px;
+			text-align: center;
+			margin-bottom: 10px;
+		}
 
-        .card-footer {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 100%;
-        }
+		.card-footer {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			width: 100%;
+		}
 
-        .card-footer .btn {
-            padding: 1rem 2rem;
-            font-size: 1.2rem;
-            margin-top: 5px;
-        }
+		.card-footer .btn {
+			padding: 1rem 2rem;
+			font-size: 1.2rem;
+			margin-top: 5px;
+		}
 
-        .cart-icon {
-            position: fixed;
-            top: 10px;
-            right: 10px;
-            z-index: 1000;
-            display: flex;
-            align-items: center;
-        }
+		.cart-icon {
+			position: fixed;
+			top: 10px;
+			right: 10px;
+			z-index: 1000;
+			display: flex;
+			align-items: center;
+		}
 
-        .cart-icon i {
-            font-size: 20px;
-        }
+		.cart-icon i {
+			font-size: 20px;
+		}
 
-        .cart-count {
-            position: relative;
-            background-color: red;
-            color: white;
-            padding: 5px 10px;
-            border-radius: 50%;
-            font-size: 10px;
-            margin-left: 5px;
-        }
+		.cart-count {
+			position: relative;
+			background-color: red;
+			color: white;
+			padding: 5px 10px;
+			border-radius: 50%;
+			font-size: 10px;
+			margin-left: 5px;
+		}
 
-        [data-cart-target="searchInput"] {
-            width: 100%;
-            max-width: 600px;
-            margin: 20px auto;
-            padding: 10px 15px;
-            border: 2px solid #007bff;
-            border-radius: 25px;
-            font-size: 1rem;
-            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-            outline: none;
-            transition: box-shadow 0.3s, border-color 0.3s;
-        }
+		[data-cart-target="searchInput"] {
+			width: 100%;
+			max-width: 600px;
+			margin: 20px auto;
+			padding: 10px 15px;
+			border: 2px solid #007bff;
+			border-radius: 25px;
+			font-size: 1rem;
+			box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+			outline: none;
+			transition: box-shadow 0.3s, border-color 0.3s;
+		}
 
-        [data-cart-target="searchInput"]:focus {
-            border-color: #0056b3;
-            box-shadow: 0px 4px 10px rgba(0, 91, 187, 0.4);
-        }
+		[data-cart-target="searchInput"]:focus {
+			border-color: #0056b3;
+			box-shadow: 0 4px 10px rgba(0, 91, 187, 0.4);
+		}
 
-        [data-controller="cart"] {
-            margin-top: 20px;
-            display: flex;
-            justify-content: center;
-        }
+		[data-controller="cart"] {
+			margin-top: 20px;
+			display: flex;
+			justify-content: center;
+		}
 
-        #cart-items {
-            position: fixed;
-            top: 10px;
-            right: 10px;
-            display: flex;
-            align-items: center;
-            z-index: 1000;
-        }
+		#cart-items {
+			position: fixed;
+			top: 10px;
+			right: 10px;
+			display: flex;
+			align-items: center;
+			z-index: 1000;
+		}
 
-        .cart-icon {
-            margin-left: 10px;
-        }
+		.cart-icon {
+			margin-left: 10px;
+		}
 
-        .credit-card-icon {
-            margin-right: 50px;
-        }
+		.credit-card-icon {
+			margin-right: 50px;
+		}
 
-        .cart-icon i, .credit-card-icon i {
-            font-size: 20px;
-            color: black;
-        }
+		.cart-icon i,
+		.credit-card-icon i {
+			font-size: 20px;
+			color: black;
+		}
 
-        .cart-count {
-            position: relative;
-            background-color: red;
-            color: white;
-            padding: 5px 10px;
-            border-radius: 50%;
-            font-size: 10px;
-            margin-left: 5px;
-        }
-    </style>
+		.cart-count {
+			position: relative;
+			background-color: red;
+			color: white;
+			padding: 5px 10px;
+			border-radius: 50%;
+			font-size: 10px;
+			margin-left: 5px;
+		}
+	</style>
 {% endblock %}
 
 {% block body %}
-    <div class="container mt-4">
-        <div data-controller="cart">
-            <input
-                type="text"
-                placeholder="Rechercher un produit"
-                data-cart-target="searchInput"
-                data-action="input->cart#search"
-            />
-            <ul data-cart-target="searchResults" class="search-results"></ul>
-        </div>
+	<div class="container mt-4">
+		<div data-controller="cart">
+			<input type="text" placeholder="Rechercher un produit" data-cart-target="searchInput" data-action="input->cart#search"/>
+			<ul data-cart-target="searchResults" class="search-results"></ul>
+		</div>
 
-        {% for message in app.flashes('success') %}
-            <div class="alert alert-success">
-                {{ message }}
-            </div>
-        {% endfor %}
+		{% for message in app.flashes('success') %}
+			<div class="alert alert-success">
+				{{ message }}
+			</div>
+		{% endfor %}
 
-        <div class="row">
-            {% for product in products %}
-                {% if product.stock > 0 %}
-                    <div class="col-md-4 mb-4">
-                        <div class="card shadow-sm border-light rounded h-100">
-                            <img src="{{ asset(product.images[0].url) }}" alt="{{ product.name }}" class="card-img-top product-image">
-                            <div class="card-body">
-                                <div class="product-info">
-                                    <h5 class="card-title">{{ product.name }}</h5>
-                                    <p>{{ product.price }} €</p>
-                                    <p><strong>{{ 'product.quantity_available'|trans }}:</strong> {{ product.stock }}</p>
-                                </div>
-                                <div class="product-quantity">
-                                    <form data-controller="cart" data-action="submit->cart#addToCart" action="{{ path('app_panier_ajouter') }}" method="POST">
-                                        <input type="hidden" name="product_id" value="{{ product.id }}">
-                                        <div class="d-flex flex-column align-items-center">
-                                            <input type="number" name="quantity" value="1" min="1" max="{{ product.stock }}" class="form-control mb-2" style="width: 80px; text-align: center;">
-                                            <button type="submit" class="btn btn-success">{{ 'product.add_to_cart'|trans }}</button>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                {% endif %}
-            {% else %}
-                <div class="col-12">
-                    <p>{{ 'no_products_found'|trans }}</p>
-                </div>
-            {% endfor %}
-        </div>
+		<div class="row">
+			{% for product in products %}
+				{% if product.stock > 0 %}
+					<div class="col-md-4 mb-4">
+						<div class="card shadow-sm border-light rounded h-100">
+							<img src="{{ asset(product.images[0].url) }}" alt="{{ product.name }}" class="card-img-top product-image">
+							<div class="card-body">
+								<div class="product-info">
+									<h5 class="card-title">{{ product.name }}</h5>
+									<p>{{ product.price }}
+										€</p>
+									<p>
+										<strong>{{ 'product.quantity_available'|trans }}:</strong>
+										{{ product.stock }}</p>
+								</div>
+								<div class="product-quantity">
+									<form data-controller="cart" data-action="submit->cart#addToCart" action="{{ path('app_panier_ajouter') }}" method="POST">
+										<input type="hidden" name="product_id" value="{{ product.id }}">
+										<div class="d-flex flex-column align-items-center">
+											<input type="number" name="quantity" value="1" min="1" max="{{ product.stock }}" class="form-control mb-2" style="width: 80px; text-align: center;">
+											<button type="submit" class="btn btn-success">{{ 'product.add_to_cart'|trans }}</button>
+                                            <span data-cart-target="cartCount">{{ cartCount }}</span>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				{% endif %}
+			{% else %}
+				<div class="col-12">
+					<p>{{ 'no_products_found'|trans }}</p>
+				</div>
+			{% endfor %}
+		</div>
 
-        <div class="d-flex justify-content-between mt-3">
-            <a href="{{ path('app_panier') }}" class="btn btn-primary btn-lg">{{ 'product.view_cart'|trans }}</a>
-        </div>
-    </div>
 
-    <div id="cart-items">
-        <div class="cart-icon">
-            <i class="fas fa-shopping-cart"></i>
-            <span data-cart-target="cartCount">{{ cartCount }}</span>
-        </div>
+	</div>
 
-        <div class="credit-card-icon">
-            <a href="{{ path('add_credit_card') }}">
-                <i class="fas fa-credit-card"></i>
-            </a>
-        </div>
-    </div>
+	<div id="cart-items">
+
+    <a href="{{ path('app_panier') }}"</a>
+		<div class="cart-icon">
+			
+			<i class="fas fa-shopping-cart"></i>
+			<div data-controller="cart">
+				<span data-cart-target="cartCount">{{ cartCount }}</span>
+			</div>
+		</div>
+
+		<div class="credit-card-icon">
+			<a href="{{ path('add_credit_card') }}">
+				<i class="fas fa-credit-card"></i>
+			</a>
+		</div>
+	</div>
 {% endblock %}
