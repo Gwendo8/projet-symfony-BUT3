@@ -1,6 +1,61 @@
-# Documentation - Projet Symfony BUT3
+Documentation - Projet Symfony BUT3 : Mini Site E-commerce
 
-1. Installation des dépendances
+1. Sujet du Projet
+
+1.1. Description
+
+Le projet consiste à développer une plateforme E-commerce en ligne permettant aux utilisateurs de :
+• Acheter des produits organisés par catégories.
+• Gérer leurs paniers et passer des commandes.
+• Accéder à des fonctionnalités administratives pour la gestion des utilisateurs, produits et commandes.
+
+
+2. Fonctionnalités
+
+2.1. Gestion des produits
+
+    •	CRUD Produits : Formulaires pour afficher, créer et modifier des produits.
+    •	Flash Messages : Retour visuel pour les actions (ajout, modification, suppression).
+    •	Protection des données : Les produits associés à des commandes ne peuvent pas être supprimés.
+
+2.2. Gestion des utilisateurs et commandes
+
+    •	Création d’une interface administrateur pour :
+    •	Lister les utilisateurs et produits.
+    •	Ajouter, modifier et supprimer des produits.
+    •	Gérer les quantités disponibles.
+    •	Afficher les commandes.
+    •	Système de connexion sécurisé :
+    •	Gestion des accès aux pages administratives.
+    •	Mot de passe haché dans la base de données.
+
+2.3. Tableau de bord
+
+    •	Visualisation des indicateurs :
+    •	Nombre total de produits par catégorie.
+    •	5 dernières commandes.
+    •	Ratio de disponibilité des produits (en stock, en rupture, en précommande).
+    •	Montant total des ventes mensuelles sur les 12 derniers mois.
+
+2.4. Panier d’achat et commandes
+
+    •	Fonctionnalités du panier :
+    •	Ajout de produits, modification des quantités et passage de commandes.
+    •	Mise à jour des stocks lors de la validation d’une commande.
+    •	Stimulus : Mise à jour dynamique du panier sans rechargement de la page.
+
+2.5. Pages dynamiques
+
+    •	Recherche dynamique :
+    •	Recherche des produits avec Autocomplete.
+    •	Affichage d’aperçus des produits.
+    •	Formulaires dynamiques :
+    •	Ajout de cartes bancaires avec validation en temps réel et sans rechargement.
+    •	Formulaires imbriqués pour gérer plusieurs cartes.
+
+3. Installation et Configuration
+
+3.1. Installation des dépendances
 
 Composer :
 composer install
@@ -15,39 +70,42 @@ Compilation des assets :
 npm run dev
 npm run build
 
-2. Création et configuration de la base de données
+3.2. Configuration de la base de données
 
-Vérification de la configuration :
+    1.	Vérification de la configuration :
+
 DATABASE_URL="mysql://root@127.0.0.1:3306/projet-symfony?&charset=utf8mb4"
 
-Création de la base de données :
+    2.	Création de la base :
+
 php bin/console doctrine:database:create
 
-Mise en place du schéma :
-php bin/console doctrine:migrations:migrate
+    3.	Migration des schémas :
+    php bin/console doctrine:migrations:migrate
 
-3. Injection des données dans la base de données
-   php bin/console doctrine:fixtures:load
+3.3. Injection des données
+php bin/console doctrine:fixtures:load
 
-4. Lancement du projet
-   symfony server:start
+3.4. Lancement du serveur
+symfony server:start
 
-- Gestion des Stimulus pour le Panier et la Modification
+4. Problème
 
-5. Informations
+4.1. Stimulus : Ajout au panier
 
-Stimulus : Ajout au panier
+Lorsqu’un utilisateur clique sur “Ajouter au panier”, le compteur du panier s’incrémente dans la console.
+• Problème :
+La mise à jour ne se reflète pas dynamiquement dans le DOM. 
 
-    •	Fonctionnalité : Lorsqu’un utilisateur clique sur le bouton “Ajouter au panier”, le compteur du panier s’incrémente correctement dans la console.
+4.2. Stimulus : Modification
+
+Les modifications fonctionnent correctement dans la console.
+• Problème :
+Comme pour l’ajout au panier, les changements nécessitent un rafraîchissement pour apparaître dans le DOM.
+
+4.3. LiveComponent : Ajout de cartes bancaires
+
     •	Problème :
-    •	La mise à jour du compteur ne se reflète pas dynamiquement dans le DOM.
-    •	Pour voir le compteur mis à jour, il faut :
-    •	Soit rafraîchir la page.
-    •	Soit constater que le compteur s’incrémente en dessous du bouton “Ajouter au panier”, au lieu de mettre à jour le compteur a coté de l’icône de panier.
+Les boutons du composant LiveComponent ne fonctionnent pas actuellement.
 
-Stimulus : Modification
 
-    •	Fonctionnalité : La logique de modification fonctionne correctement dans la console.
-    •	Problème :
-    •	Comme pour l’ajout au panier, les modifications ne se mettent pas à jour dynamiquement dans le DOM.
-    •	Il est nécessaire de rafraîchir la page pour voir les changements.

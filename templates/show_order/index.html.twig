@@ -1,38 +1,46 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <div class="container">
-        <h1 class="mt-4">{{ 'admin_panel_orders.title' | trans }}</h1>
+    <div class="container mt-5">
+        <h1 class="text-primary mb-4">{{ 'admin_panel_orders.title' | trans }}</h1>
 
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>{{ 'admin_panel_orders.id' | trans }}</th>
-                    <th>{{ 'admin_panel_orders.reference' | trans }}</th>
-                    <th>{{ 'admin_panel_orders.created_at' | trans }}</th>
-                    <th>{{ 'admin_panel_orders.status' | trans }}</th>
-                    <th>{{ 'admin_panel_orders.user' | trans }}</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for order in pagination %}
-                    <tr>
-                        <td>{{ order.id }}</td>
-                        <td>{{ order.reference }}</td>
-                        <td>{{ order.createdAt ? order.createdAt|date('Y-m-d H:i:s') : 'N/A' }}</td>
-                        <td>{{ order.status.toString() }}</td>
-                        <td>{{ order.user ? order.user.getFullName() : 'N/A' }}</td>
-                    </tr>
-                {% else %}
-                    <tr>
-                        <td colspan="6" class="text-center">{{ 'admin_panel_orders.no_orders_found' | trans }}</td>
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+        <div class="card shadow-sm rounded">
+            <div class="card-body">
 
-        <div class="mt-3">
-            {{ knp_pagination_render(pagination) }}
+                <table class="table table-hover table-bordered mt-3">
+                    <thead class="thead-light">
+                        <tr>
+                            <th>{{ 'admin_panel_orders.id' | trans }}</th>
+                            <th>{{ 'admin_panel_orders.reference' | trans }}</th>
+                            <th>{{ 'admin_panel_orders.created_at' | trans }}</th>
+                            <th>{{ 'admin_panel_orders.status' | trans }}</th>
+                            <th>{{ 'admin_panel_orders.user' | trans }}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for order in pagination %}
+                            <tr>
+                                <td>{{ order.id }}</td>
+                                <td>{{ order.reference }}</td>
+                                <td>{{ order.createdAt ? order.createdAt|date('Y-m-d H:i:s') : 'N/A' }}</td>
+                                <td>
+                                    <span class="badge badge-{{ order.status == 'completed' ? 'success' : 'warning' }}">
+                                        {{ order.status.toString() }}
+                                    </span>
+                                </td>
+                                <td>{{ order.user ? order.user.getFullName() : 'N/A' }}</td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="5" class="text-center">{{ 'admin_pansel_orders.no_orders_found' | trans }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <div class="mt-3 d-flex justify-content-center">
+                    {{ knp_pagination_render(pagination) }}
+                </div>
+            </div>
         </div>
     </div>
 {% endblock %}

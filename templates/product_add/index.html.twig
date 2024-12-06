@@ -4,17 +4,20 @@
 	<div class="container mt-4">
 		<h1 class="mb-4">{{ product.id ? 'modifier.product'|trans : 'add_product'|trans }}</h1>
 
-		{{ form_start(form, {'attr': {'class': 'needs-validation', 'novalidate': 'novalidate'}}) }}
+		{{ form_start(form, {'attr': {'class': 'needs-validation', 'novalidate': 'novalidate', 'enctype': 'multipart/form-data'}}) }}
+		
 		<div class="mb-3">
 			{{ form_label(form.name, null, {'label_attr': {'class': 'form-label'}}) }}
 			{{ form_widget(form.name, {'attr': {'class': 'form-control'}}) }}
 			{{ form_errors(form.name) }}
 		</div>
+
 		<div class="mb-3">
-			{{ form_label(form.image_url, null, {'label_attr': {'class': 'form-label'}}) }}
-			{{ form_widget(form.image_url, {'attr': {'class': 'form-control'}}) }}
-			{{ form_errors(form.image_url) }}
+			{{ form_label(form.image_file, null, {'label_attr': {'class': 'form-label'}}) }}
+			{{ form_widget(form.image_file, {'attr': {'class': 'form-control'}}) }}
+			{{ form_errors(form.image_file) }}
 		</div>
+
 		<div class="mb-3">
 			{{ form_label(form.category, null, {'label_attr': {'class': 'form-label'}}) }}
 			{{ form_widget(form.category, {'attr': {'class': 'form-control'}}) }}
@@ -38,6 +41,7 @@
 			{{ form_widget(form.status, {'attr': {'class': 'form-select'}}) }}
 			{{ form_errors(form.status) }}
 		</div>
+
 		<div class="mb-3">
 			{{ form_label(form.stock, null, {'label_attr': {'class': 'form-label'}}) }}
 			{{ form_widget(form.stock, {'attr': {'class': 'form-control'}}) }}

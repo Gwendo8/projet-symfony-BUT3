@@ -24,18 +24,23 @@ class ProductAddController extends AbstractController
     $form->handleRequest($request);
 
     if ($form->isSubmitted() && $form->isValid()) {
-        $imageUrl = $form->get('image_url')->getData();
-
-        if ($imageUrl) {
+        $imageFile = $form->get('image_file')->getData();
+    
+        if ($imageFile) {
+            $uploadsDirectory = $this->getParameter('kernel.project_dir') . '/public/uploads/images';
+            
+            $newFilename = uniqid() . '.' . $imageFile->guessExtension();
+    
+            $imageFile->move($uploadsDirectory, $newFilename);
             $image = new Image();
-            $image->setUrl($imageUrl);
+            $image->setUrl('/uploads/images/' . $newFilename);
             $image->setProduct($product);
             $entityManager->persist($image);
         }
-
+    
         $entityManager->persist($product);
         $entityManager->flush();
-
+    
         $this->addFlash('success', 'Produit ajouté avec succès.');
         return $this->redirectToRoute('app_admin_products');
     }

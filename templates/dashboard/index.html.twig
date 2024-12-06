@@ -1,101 +1,134 @@
-
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <div class="container">
-        <h1 class="mt-4">{{ 'dashboard.title'|trans }}</h1>
-        <br>
-        <h3>{{ 'dashboard.product_category'|trans }}</h3>
-        <table class="table table-striped mt-3">
-            <thead>
-                <tr>
-                    <th>Catégorie</th>
-                    <th>Nombre de produits</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for category in productsCategory %}
-                    <tr>
-                        <td>{{ category.category }}</td>
-                        <td>{{ category.count }}</td>
-                    </tr>
-                {% else %}
-                    <tr>
-                        <td colspan="2" class="text-center">{{ 'dashboard.no_category_found'|trans }}</td>
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-        <br><br>
-        <h3>{{ 'dashboard.last_orders'|trans }}</h3>
-        <table class="table table-striped mt-3">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Date</th>
-                    <th>Status</th>
-                    <th>Reference</th>
-                    <th>Client</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for order in lastOrders %}
-                    <tr>
-                        <td>{{ order.id }}</td>
-                        <td>{{ order.createdAt|date('d/m/Y H:i') }}</td>
-                        <td>{{ order.getStatusAsString() }}</td>
-                        <td>{{ order.reference }}</td>
-                        <td>{{ order.user.lastname }} {{ order.user.firstname }}</td>
-                    </tr>
-                {% else %}
-                    <tr>
-                        <td colspan="5" class="text-center">{{ 'dashboard.no_recent_orders'|trans }}</td>
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-        <br><br>
-        <h3>{{ 'dashboard.product_status'|trans }}</h3>
-        <table class="table table-striped mt-3">
-            <thead>
-                <tr>
-                    <th>Statut</th>
-                    <th>Nombre de produits</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for status in productsStatus %}
-                    <tr>
-                        <td>{{ status.status.name }}</td>
-                        <td>{{ status.count }}</td>
-                    </tr>
-                {% else %}
-                    <tr>
-                        <td colspan="2" class="text-center">{{ 'dashboard.no_status_found'|trans }}</td>
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-        <h3>{{ 'dashboard.sales_per_month'|trans }}</h3>
-        <table class="table table-striped mt-3">
-            <thead>
-                <tr>
-                    <th>Mois</th>
-                    <th>Nombre de ventes</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for sale in salesMonth %}
-                    <tr>
-                        <td>{{ sale.month }}</td>
-                        <td>{{ sale.total_sales }}</td>
-                    </tr>
-                {% else %}
-                    <tr>
-                        <td colspan="2" class="text-center">{{ 'dashboard.no_sales_recorded'|trans }}</td>
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+    <div class="container mt-5">
+        <h1 class="text-primary mb-4">{{ 'dashboard.title'|trans }}</h1>
+
+        <div class="row mb-5">
+            <div class="col-md-12">
+                <div class="card shadow-sm rounded">
+                    <div class="card-body">
+                        <h3 class="card-title">{{ 'dashboard.product_category'|trans }}</h3>
+                        <table class="table table-hover table-bordered mt-3">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th>Catégorie</th>
+                                    <th>Nombre de produits</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for category in productsCategory %}
+                                    <tr>
+                                        <td>{{ category.category }}</td>
+                                        <td>{{ category.count }}</td>
+                                    </tr>
+                                {% else %}
+                                    <tr>
+                                        <td colspan="2" class="text-center">{{ 'dashboard.no_category_found'|trans }}</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mb-5">
+            <div class="col-md-12">
+                <div class="card shadow-sm rounded">
+                    <div class="card-body">
+                        <h3 class="card-title">{{ 'dashboard.last_orders'|trans }}</h3>
+                        <table class="table table-hover table-bordered mt-3">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Date</th>
+                                    <th>Status</th>
+                                    <th>Référence</th>
+                                    <th>Client</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for order in lastOrders %}
+                                    <tr>
+                                        <td>{{ order.id }}</td>
+                                        <td>{{ order.createdAt|date('d/m/Y H:i') }}</td>
+                                        <td>{{ order.getStatusAsString() }}</td>
+                                        <td>{{ order.reference }}</td>
+                                        <td>{{ order.user.lastname }} {{ order.user.firstname }}</td>
+                                    </tr>
+                                {% else %}
+                                    <tr>
+                                        <td colspan="5" class="text-center">{{ 'dashboard.no_recent_orders'|trans }}</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mb-5">
+            <div class="col-md-12">
+                <div class="card shadow-sm rounded">
+                    <div class="card-body">
+                        <h3 class="card-title">{{ 'dashboard.product_status'|trans }}</h3>
+                        <table class="table table-hover table-bordered mt-3">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th>Statut</th>
+                                    <th>Nombre de produits</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for status in productsStatus %}
+                                    <tr>
+                                        <td>{{ status.status.name }}</td>
+                                        <td>{{ status.count }}</td>
+                                    </tr>
+                                {% else %}
+                                    <tr>
+                                        <td colspan="2" class="text-center">{{ 'dashboard.no_status_found'|trans }}</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mb-5">
+            <div class="col-md-12">
+                <div class="card shadow-sm rounded">
+                    <div class="card-body">
+                        <h3 class="card-title">{{ 'dashboard.sales_per_month'|trans }}</h3>
+                        <table class="table table-hover table-bordered mt-3">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th>Mois</th>
+                                    <th>Nombre de ventes</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for sale in salesMonth %}
+                                    <tr>
+                                        <td>{{ sale.month }}</td>
+                                        <td>{{ sale.total_sales }}</td>
+                                    </tr>
+                                {% else %}
+                                    <tr>
+                                        <td colspan="2" class="text-center">{{ 'dashboard.no_sales_recorded'|trans }}</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 {% endblock %}
